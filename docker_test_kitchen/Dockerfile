@@ -6,7 +6,6 @@ RUN apt-get update \
 	&& echo "deb https://apt.dockerproject.org/repo debian-jessie main" > /etc/apt/sources.list.d/docker.list \
 	&& apt-get update \
 	&& apt-get install -y docker-engine \
-	&& service docker start \
   && rm -rf /var/lib/apt/lists/* \
   && gem install bundler \
   && mkdir /app \
