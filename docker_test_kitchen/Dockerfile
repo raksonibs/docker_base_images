@@ -14,4 +14,6 @@ RUN apt-get update \
   && mkdir /root/.ssh \
   && ssh-keyscan github.com >> /root/.ssh/known_hosts
 
+ADD ci_test.sh /usr/local/bin/
+CMD ci_test.sh
 WORKDIR /app
