@@ -11,5 +11,5 @@ For some reason, Docker hub doesn't build the docker_test_kitchen image - it err
 To update it:
 
 - Built it locally with a `docker build .` and note the resulting ID.
-- Run `docker tag ID voxmedia/docker_base_images:docker_test_kitche-VERSION`
+- Run `docker tag ID voxmedia/docker_base_images:docker_test_kitchen-VERSION`
 - `docker push voxmedia/docker_base_images` (this will _maybe_ overrite existing tags but I really hope not)
