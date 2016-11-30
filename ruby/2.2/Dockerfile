@@ -1,4 +1,4 @@
-FROM ruby:2.2.2
+FROM ruby:2.2.5
 
 RUN echo "deb http://apt.gemnasium.com stable main" > /etc/apt/sources.list.d/gemnasium.list \
   && apt-key adv --recv-keys --keyserver keyserver.ubuntu.com E5CEAB0AC5F1CA2A \
