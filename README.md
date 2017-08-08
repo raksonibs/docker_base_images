@@ -13,7 +13,7 @@ using this image would look like this:
     #!/bin/sh
     set -e
     /opt/entrypoint/cleanup_pids.sh
-    /opt/entrypoint/service_health_checks/mysql.sh || exit 1
+    /opt/entrypoint/service_health_checks/mysql.sh
     exec docker-ssh-exec bundle exec "$@"
 
 Note that this example includes `docker-ssh-exec` directly in the exec command, to make keys available to all commands
