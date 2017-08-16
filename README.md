@@ -23,15 +23,12 @@ using this image would look like this:
     set -e
     /opt/entrypoint/cleanup_pids.sh
     /opt/entrypoint/service_health_checks/mysql.sh
-    /opt/entrypoint/exec_as_host_user.sh "$@"
+    exec docker-ssh-exec bundle exec "$@"
+
+Note that this example includes `docker-ssh-exec` directly in the exec command, to make keys available to all commands
+without having to remember which commands require it and reference docker-ssh-exec manually.
 
 ### Rails base image changelog
-
-#### Version 0.2
-
-* Adds exec_as_host_user.sh to create a non-root user with same uid/gid as host, for proper file system permissions when files are written to a volume from a container
-* Installs "sudo", a necessary piece of that new entrypoint script
-* Adds "/app/bin" to the path for access to binstubs
 
 #### Version 0.1
 
