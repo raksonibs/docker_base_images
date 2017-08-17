@@ -6,7 +6,7 @@ HOST_UID=$(stat -c %u /home/docker/app)
 HOST_GID=$(stat -c %g /home/docker/app)
 
 # If the docker user doesn't share the same uid, change it so that it does
-if [ ! "${HOST_UID}" = "$(id -u docker)" ]; then
+if [ ! "${HOST_UID}" = "$(id -u docker)" ] && [ ! "${HOST_UID}" = "0" ]; then
   usermod -u $HOST_UID docker
   groupmod -g $HOST_GID docker
 
