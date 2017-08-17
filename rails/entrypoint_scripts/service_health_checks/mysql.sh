@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # if DATABASE_HOST is present, make sure mysql is alve before proceeding
 if [ ! -z "${DATABASE_HOST}" ]; then
   MYSQL_UP=false
