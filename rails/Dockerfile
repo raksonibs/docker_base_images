@@ -8,16 +8,16 @@ RUN chmod +x /usr/local/bin/docker-ssh-exec
 ADD entrypoint_scripts /opt/entrypoint/
 RUN chmod -R +x /opt/entrypoint/*
 
-# Install sudo
-RUN apt-get update && apt-get install -y sudo vim \
-  && apt-get clean && rm -rf /var/lib/apt/lists/*
-
 # Create a non-root user "docker" to run as, with an arbitrary uid/gid
 # The entrypoint will be responsible for later setting the uid/gid to match the host's
 RUN \
   groupadd -f -g 9999 docker \
-  && useradd --shell /bin/bash -u 9999 -g 9999 -m docker \
-  # Also make the user a sudoer
+  && useradd --shell /bin/bash -u 9999 -g 9999 -m docker
+
+# Also make the user a sudoer
+RUN \
+  apt-get update && apt-get install -y sudo vim \
+  && apt-get clean && rm -rf /var/lib/apt/lists/* \
   && echo "docker ALL=(ALL) NOPASSWD:SETENV:ALL" >> "/etc/sudoers" \
   && echo "Defaults always_set_home" >> "/etc/sudoers"
 
