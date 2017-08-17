@@ -9,5 +9,12 @@ HOST_GID=$(stat -c %g /home/docker/app)
 if [ ! "${HOST_UID}" = "$(id -u docker)" ]; then
   usermod -u $HOST_UID docker
   groupmod -g $HOST_GID docker
-  chown -R docker:docker /home/docker
+
+  # also update the file uid/gid for files in the docker home directory
+  # skip the mounted "app" dir because we don't want any changes to mounted file ownership
+  for file in /home/docker/*; do
+    if [ $file != "/home/docker/app" ]; then
+      chown -R docker:docker $file
+    fi
+  done
 fi
