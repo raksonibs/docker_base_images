@@ -32,7 +32,7 @@ The rails base image includes a system for managing a non-root internal docker u
 * The dockerfile now creates a non-root user (named "docker") and runs as that user
 * Bundler configuration added (necessary to get bundler to work well in user context)
 * New entrypoint script added to manage syncing the host user uid/gid with the internal user
-# New entrypoint script added to exec as the internal user
+* New entrypoint script added to exec as the internal user
 
 #### Version 0.1
 
