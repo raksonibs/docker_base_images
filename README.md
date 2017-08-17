@@ -27,6 +27,10 @@ The rails base image includes a system for managing a non-root internal docker u
 
 ### Rails base image changelog
 
+#### Version 0.3
+
+* If the host user id is 0, skip the host user sync step. This probably means the host enviornment is OSX, where it doesn't matter if the container user and host user are synced.
+
 #### Version 0.2
 
 * The dockerfile now creates a non-root user (named "docker") and runs as that user
