@@ -23,7 +23,7 @@ RUN \
 
 # Run all subsequent commands as the new user
 USER docker
-ENV HOME /home/dockerFROM voxmedia/docker_base_images:rails-0
+ENV HOME /home/docker
 WORKDIR $HOME
 
 # Configure bundler
