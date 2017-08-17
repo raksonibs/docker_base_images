@@ -16,19 +16,23 @@ To update it:
 
 ## The rails base image
 
-The rails base image includes docker-ssh-exec and some standard entrypoint scripts. An example of an entrypoint script
-using this image would look like this:
+The rails base image includes a system for managing a non-root internal docker user; and some standard entrypoint helper scripts. An example of an entrypoint using this image would look like this:
 
     #!/bin/sh
     set -e
     /opt/entrypoint/cleanup_pids.sh
     /opt/entrypoint/service_health_checks/mysql.sh
-    exec docker-ssh-exec bundle exec "$@"
-
-Note that this example includes `docker-ssh-exec` directly in the exec command, to make keys available to all commands
-without having to remember which commands require it and reference docker-ssh-exec manually.
+    /opt/entrypoint/sync_docker_user_with_host_user.sh
+    exec /opt/entrypoint/exec_as_docker_user.sh
 
 ### Rails base image changelog
+
+#### Version 0.2
+
+* The dockerfile now creates a non-root user (named "docker") and runs as that user
+* Bundler configuration added (necessary to get bundler to work well in user context)
+* New entrypoint script added to manage syncing the host user uid/gid with the internal user
+# New entrypoint script added to exec as the internal user
 
 #### Version 0.1
 
