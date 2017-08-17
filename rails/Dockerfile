@@ -43,3 +43,7 @@ ENV PATH=$BUNDLE_BIN:$PATH
 # Skip confirmation requirement for github authenticity warnings when installing bundle
 RUN mkdir -p $HOME/.ssh
 RUN echo "Host github.com\n\tStrictHostKeyChecking no\n" >> $HOME/.ssh/config
+
+# Return to root context, as the entrypoint will need to run in root context
+# The entrypoint will be responsible for execing as the internal user as the last step
+USER root
