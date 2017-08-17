@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # we find the host uid/gid by assuming the app directory belongs to the host
@@ -12,6 +12,7 @@ if [ ! "${HOST_UID}" = "$(id -u docker)" ]; then
 
   # also update the file uid/gid for files in the docker home directory
   # skip the mounted "app" dir because we don't want any changes to mounted file ownership
+  shopt -s dotglob
   for file in /home/docker/*; do
     if [ $file != "/home/docker/app" ]; then
       chown -R docker:docker $file
