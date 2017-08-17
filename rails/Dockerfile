@@ -9,7 +9,7 @@ ADD entrypoint_scripts /opt/entrypoint/
 RUN chmod -R +x /opt/entrypoint/*
 
 # Install sudo
-RUN apt-get update && apt-get install -y sudo \
+RUN apt-get update && apt-get install -y sudo vim \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user "docker" to run as, with an arbitrary uid/gid
@@ -23,7 +23,7 @@ RUN \
 
 # Run all subsequent commands as the new user
 USER docker
-ENV HOME /home/docker
+ENV HOME /home/dockerFROM voxmedia/docker_base_images:rails-0
 WORKDIR $HOME
 
 # Configure bundler
