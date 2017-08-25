@@ -23,7 +23,7 @@ The rails base image includes a system for managing a non-root internal docker u
     /opt/entrypoint/cleanup_pids.sh
     /opt/entrypoint/service_health_checks/mysql.sh
     /opt/entrypoint/sync_docker_user_with_host_user.sh
-    exec /opt/entrypoint/exec_as_docker_user.sh $@
+    exec /opt/entrypoint/exec_as_docker_user.sh
 
 ### Rails base image changelog
 
