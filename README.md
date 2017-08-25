@@ -30,9 +30,14 @@ without having to remember which commands require it and reference docker-ssh-ex
 
 ### Rails base image changelog
 
+#### Version 0.3
+
+* Adds `install_phantomjs.sh` build script.
+
 #### Version 0.2
 
-* Adds a `build_scripts` directory with some install scripts. They're not run automatically--child images can choose to run those that are necessary.
+* Adds a `build_scripts` directory with an `install_node.sh` script. It's not run automatically--child images can choose to run if it necessary.
+
 
 #### Version 0.1
 
