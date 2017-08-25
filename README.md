@@ -27,10 +27,6 @@ The rails base image includes a system for managing a non-root internal docker u
 
 ### Rails base image changelog
 
-#### Version 0.4
-
-* Use "gosu" in the final entrypoint exec instead of "sudo".
-
 #### Version 0.3
 
 * If the host user id is 0, skip the host user sync step. This probably means the host enviornment is OSX, where it doesn't matter if the container user and host user are synced.

@@ -1,2 +1,2 @@
 #!/bin/bash
-exec gosu docker docker-ssh-exec $@
+exec sudo -E -u docker PATH=$BUNDLE_BIN:$PATH docker-ssh-exec $@
