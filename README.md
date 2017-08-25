@@ -30,6 +30,10 @@ without having to remember which commands require it and reference docker-ssh-ex
 
 ### Rails base image changelog
 
+#### Version 0.2
+
+* Adds a `build_scripts` directory with an `install_node.sh` script. It's not run automatically--child images can choose to run if it necessary.
+
 #### Version 0.1
 
 * Initial rails base image
