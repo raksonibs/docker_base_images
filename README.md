@@ -32,7 +32,7 @@ without having to remember which commands require it and reference docker-ssh-ex
 
 #### Version 0.2
 
-* Adds a `build_scripts` directory with an `install_node.sh` script. It's not run automatically--child images can choose to run if it necessary.
+* Adds a `build_scripts` directory with some install scripts. They're not run automatically--child images can choose to run those that are necessary.
 
 #### Version 0.1
 
