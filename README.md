@@ -41,7 +41,7 @@ using this image would look like this:
 
 Note that this example includes `docker-ssh-exec` directly in the exec command, to make keys available to all commands without having to remember which commands require it and reference docker-ssh-exec manually.
 
-### Ruby base images changelog
+### Ruby images changelog
 
 #### Version 0.3 (`ruby_2.2-0.3` and `ruby_2.3-0.3` and `ruby-2.4-0.3`)
 
@@ -56,7 +56,6 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 #### Version 0.2
 
 * Adds a `build_scripts` directory with an `install_node.sh` script. It's not run automatically--child images can choose to run if it necessary.
-
 
 #### Version 0.1
 
