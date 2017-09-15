@@ -27,13 +27,9 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 - Bump the version in `VERSION`
 - Run `ruby/build.sh`
 
-### Building the images locally
-
-### Details
-
 ### Ruby images changelog
 
-#### Version 0.3 (`ruby_2.2-0.3` and `ruby_2.3-0.3` and `ruby-2.4-0.3`)
+#### Version 0.3 (`ruby_2.2-0.3` and `ruby_2.3-0.3` and `ruby_2.4-0.3`)
 
 * Updated ruby to 2.2.8, 2.3.5, and 2.4.2 to address CVEs
 * Moved all the functionality of the `rails` image into the base `ruby` images
