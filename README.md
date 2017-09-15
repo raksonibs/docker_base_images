@@ -11,25 +11,6 @@ To update it:
 
 ## Ruby Images
 
-What images are built is controlled by the automated build settings on Docker Hub. Right now, each Dockerfile is manually added and built based on tags that match it's name. For example, `ruby/Dockerfile` is built when a git tag matching `ruby/2.2-0.1` is pushed, where 2.2 is the version of ruby, and where 0.1 is the version we want to publish. Afterwords, application specific Dockerfiles can reference the publically available image at `voxmedia/docker_base_images:ruby_2.2-0.1`.
-
-### Updating the images
-- Make your changes
-- Bump the version in `VERSION`
-- Run `ruby/trigger_builds.sh`
-
-`trigger_builds` will create the appropriate tags and push them to github, which will then trigger the automated build process on Docker Hub.
-
-### Building the images locally
-
-If you'd like to build and test images locally, the Dockerfile uses a build arg to determine the version of ruby you want to use.  The following example builds image for ruby 2.3:
-
-```
- git clone git@github.com:voxmedia/docker_base_images.git
- cd docker_base_images/ruby
- docker build . --build-arg RUBY_VERSION=2.3
- ```
-
 The ruby base images include docker-ssh-exec and some standard entrypoint scripts. An example of an entrypoint script
 using this image would look like this:
 
@@ -41,10 +22,20 @@ using this image would look like this:
 
 Note that this example includes `docker-ssh-exec` directly in the exec command, to make keys available to all commands without having to remember which commands require it and reference docker-ssh-exec manually.
 
+### Updating the images
+- Make your changes
+- Bump the version in `VERSION`
+- Run `ruby/build.sh`
+
+### Building the images locally
+
+### Details
+
 ### Ruby images changelog
 
 #### Version 0.3 (`ruby_2.2-0.3` and `ruby_2.3-0.3` and `ruby-2.4-0.3`)
 
+* Updated ruby to 2.2.8, 2.3.5, and 2.4.2 to address CVEs
 * Moved all the functionality of the `rails` image into the base `ruby` images
 
 ### Rails base image changelog (RETIRED)
