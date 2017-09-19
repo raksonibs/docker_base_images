@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Start the docker-ssh-container if not already started
+if docker top docker-ssh-exec &>/dev/null; then
+  echo "docker-ssh-exec server is already running"
+else
+  echo "starting docker-ssh-exec server"
+
+  echo -n "ssh passphrase (leave blank for none): "
+  read -s ssh_passphrase
+  echo
+
+  # In case the image is not yet downloaded, silently pull it
+  docker pull mdsol/docker-ssh-exec &> /dev/null
+  # In case a previous stopped container exists, silently remove it
+  docker rm docker-ssh-exec &> /dev/null
+
+  if [[ ! -z $ssh_passphrase ]]; then
+    passphrase_cli_arg="-pwd $ssh_passphrase"
+  fi
+
+  # Start docker-ssh-exec (with passphrase, if supplied)
+  docker run \
+    --restart always \
+    -v ~/.ssh/id_rsa:/root/.ssh/id_rsa \
+    --name=docker-ssh-exec \
+    -d mdsol/docker-ssh-exec \
+    -server \
+    $passphrase_cli_arg \
+    &> /dev/null
+
+  echo "container started"
+fi
+
+# Create the network if it does not already exist
+if docker network inspect docker-ssh-exec &>/dev/null; then
+  echo "docker-ssh-exec network already exists"
+else
+  docker network create docker-ssh-exec &> /dev/null
+  echo "docker-ssh-exec network created"
+fi
+
+# Connect to the network if it's not already connected
+if [[ $(docker inspect docker-ssh-exec -f '{{.NetworkSettings.Networks}}') =~ docker-ssh-exec ]]; then
+  echo "container is already connected to the network"
+else
+  docker network connect docker-ssh-exec docker-ssh-exec
+  echo "container connected to network"
+fi
+
+echo "docker-ssh-exec is ready"
