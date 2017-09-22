@@ -1,0 +1,1 @@
+bundle check || bundle install
