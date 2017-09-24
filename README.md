@@ -29,6 +29,11 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Ruby images changelog
 
+#### Version 0.4 (`ruby_2.2-0.4` and `ruby_2.3-0.4` and `ruby_2.4-0.4`)
+
+* Adds bundle entrypoint script
+* Adjusts MySQL health-check to use exponential backoff, and allow setting iteration count via parameter
+
 #### Version 0.3 (`ruby_2.2-0.3` and `ruby_2.3-0.3` and `ruby_2.4-0.3`)
 
 * Updated ruby to 2.2.8, 2.3.5, and 2.4.2 to address CVEs
