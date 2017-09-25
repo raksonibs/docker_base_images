@@ -14,7 +14,7 @@ To update it:
 The ruby base images include docker-ssh-exec and some standard entrypoint scripts. An example of an entrypoint script
 using this image would look like this:
 
-    #!/bin/sh
+    #!/bin/bash
     set -e
     /opt/entrypoint/cleanup_pids.sh
     /opt/entrypoint/service_health_checks/mysql.sh
