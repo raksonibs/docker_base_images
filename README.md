@@ -5,8 +5,8 @@ The Dockerfiles in this repo are built and published publicly at https://hub.doc
 To update it:
 
 - Built it locally with a `docker build .` and note the resulting ID.
-- Run `docker tag ID voxmedia/docker_test_kitchen:VERSION`
-- `docker push voxmedia/docker_test_kitchen:VERSION`
+- Run `docker tag ID voxmedia/docker_base_images:docker_test_kitchen-VERSION`
+- `docker push voxmedia/docker_base_images:docker_test_kitchen-VERSION`
 
 ## Ruby Images
 
