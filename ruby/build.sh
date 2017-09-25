@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 version=$(cat VERSION)
 ruby_versions=("2.2" "2.3" "2.4")
