@@ -1,2 +1,2 @@
 #!/bin/bash
-bundle check || bundle install
+bundle check || docker-ssh-exec bundle install
