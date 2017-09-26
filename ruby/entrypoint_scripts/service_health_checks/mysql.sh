@@ -2,14 +2,16 @@
 
 # if DATABASE_HOST is present, make sure mysql is alve before proceeding
 if [ ! -z "${DATABASE_HOST}" ]; then
-  ITERATIONS=${1:-5}
+  ITERATIONS=${1:-10}
   MYSQL_UP=false
   for i in $(seq 1 $ITERATIONS); do
     if mysqladmin ping -h ${DATABASE_HOST} --silent > /dev/null; then
       MYSQL_UP=true
       break
     else
-      WAIT=$(($i**2))
+      echo $(($JOBS>4?$JOBS:4))
+      WAIT
+      WAIT=$(($i>5?5:$i))
       echo "Waiting $WAIT seconds for MySQL to start..."
       sleep $WAIT
     fi

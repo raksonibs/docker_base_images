@@ -29,6 +29,10 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Ruby images changelog
 
+#### Version ruby:2.x-0.6
+
+* Switch to linear backoff with a maximum of 5 seconds
+
 #### Version ruby:2.x-0.5
 
 * The image is now `ruby` instead of `docker_base_images`
