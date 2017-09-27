@@ -30,6 +30,10 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Ruby images changelog
 
+#### Version ruby:2.x-0.8
+
+* Bundle install actually doesn't need docker-ssh-exec, it needs to be outside.
+
 #### Version ruby:2.x-0.7
 
 * Bundle install needs docker-ssh-exec
