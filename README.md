@@ -15,6 +15,7 @@ using this image would look like this:
 
     #!/bin/bash
     set -e
+    docker-ssh-exec /opt/entrypoint/bundle.sh
     /opt/entrypoint/cleanup_pids.sh
     /opt/entrypoint/service_health_checks/mysql.sh
     exec docker-ssh-exec bundle exec "$@"
