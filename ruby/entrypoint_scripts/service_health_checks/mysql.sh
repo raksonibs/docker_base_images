@@ -9,8 +9,6 @@ if [ ! -z "${DATABASE_HOST}" ]; then
       MYSQL_UP=true
       break
     else
-      echo $(($JOBS>4?$JOBS:4))
-      WAIT
       WAIT=$(($i>5?5:$i))
       echo "Waiting $WAIT seconds for MySQL to start..."
       sleep $WAIT
