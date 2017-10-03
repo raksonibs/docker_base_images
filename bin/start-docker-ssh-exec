@@ -29,6 +29,7 @@ docker run \
   -server \
   $passphrase_cli_arg \
   &> /dev/null
+docker start docker-ssh-exec &> /dev/null
 
 echo "container started"
 
