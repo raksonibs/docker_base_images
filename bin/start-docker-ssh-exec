@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start the docker-ssh-container if not already started
-if docker top docker-ssh-exec &> /dev/null; then
+if docker inspect docker-ssh-exec &> /dev/null; then
   echo "old (likely stale) docker-ssh-exec server found, removing"
   docker stop docker-ssh-exec &> /dev/null
   docker rm docker-ssh-exec &> /dev/null
@@ -29,7 +29,6 @@ docker run \
   -server \
   $passphrase_cli_arg \
   &> /dev/null
-docker start docker-ssh-exec &> /dev/null
 
 echo "container started"
 
