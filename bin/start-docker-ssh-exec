@@ -33,19 +33,37 @@ docker run \
 echo "container started"
 
 # Create the network if it does not already exist
-if docker network inspect docker-ssh-exec &> /dev/null; then
+if docker network inspect \!docker-ssh-exec &> /dev/null; then
   echo "docker-ssh-exec network already exists"
 else
-  docker network create docker-ssh-exec &> /dev/null
+  docker network create \!docker-ssh-exec &> /dev/null
   echo "docker-ssh-exec network created"
 fi
 
 # Connect to the network if it's not already connected
-if [[ $(docker inspect docker-ssh-exec -f '{{.NetworkSettings.Networks}}') =~ docker-ssh-exec ]]; then
+if [[ $(docker inspect docker-ssh-exec -f '{{.NetworkSettings.Networks}}') =~ !docker-ssh-exec ]]; then
   echo "container is already connected to the network"
 else
-  docker network connect docker-ssh-exec docker-ssh-exec
+  docker network connect \!docker-ssh-exec docker-ssh-exec
   echo "container connected to network"
+fi
+
+# Create the network if it does not already exist
+# TODO: remove once all apps have switched over to new network above
+if docker network inspect docker-ssh-exec &> /dev/null; then
+  echo "legacy docker-ssh-exec network already exists"
+else
+  docker network create docker-ssh-exec &> /dev/null
+  echo "legacy docker-ssh-exec network created"
+fi
+
+# Connect to the network if it's not already connected
+# TODO: remove once all apps have switched over to new network above
+if [[ $(docker inspect docker-ssh-exec -f '{{.NetworkSettings.Networks}}') =~ [^!]docker-ssh-exec ]]; then
+  echo "container is already connected to the legacy network"
+else
+  docker network connect docker-ssh-exec docker-ssh-exec
+  echo "container connected to legacy network"
 fi
 
 echo "docker-ssh-exec is ready"
