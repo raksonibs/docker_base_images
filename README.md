@@ -15,10 +15,10 @@ using this image would look like this:
 
     #!/bin/bash
     set -e
-    docker-ssh-exec /opt/entrypoint/bundle.sh
+    docker-ssh-exec /opt/entrypoint/bundle.sh $1
     /opt/entrypoint/cleanup_pids.sh
     /opt/entrypoint/service_health_checks/mysql.sh
-    exec docker-ssh-exec bundle exec "$@"
+    exec docker-ssh-exec "$@"
 
 Note that this example includes `docker-ssh-exec` directly in the exec command, to make keys available to all commands without having to remember which commands require it and reference docker-ssh-exec manually.
 
