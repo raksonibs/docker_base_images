@@ -30,6 +30,15 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Ruby images changelog
 
+#### Version ruby:2.x-1.0.0
+
+* Now using semantic versioning for the base image
+* Added entrypoint script `use_dns_server` script (can't use the docker-compose "dns" option because that only accepts static ip addresses)
+
+#### Version ruby:2.x-0.10
+
+* Set it up to only do the bundle check/install step if not directly running a bundle command already
+
 #### Version ruby:2.x-0.9
 
 * Fix some syntax errors accidentally introduced in 0.8
