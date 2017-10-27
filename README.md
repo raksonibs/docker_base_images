@@ -33,7 +33,7 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 #### Version ruby:2.x-1.0.0
 
 * Now using semantic versioning for the base image
-* Added entrypoint script `use_dns_server` script (can't use the docker-compose "dns" option because that only accepts static ip addresses)
+* Added entrypoint script `use_dns_server.sh` (can't use the docker-compose "dns" option because that only accepts static ip addresses)
 
 #### Version ruby:2.x-0.10
 
