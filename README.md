@@ -30,6 +30,10 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Ruby images changelog
 
+#### Version ruby:2.x-1.1.0
+
+* Sets it up so that if the dns server name passed in doesn't resolve, then make it a no-op
+
 #### Version ruby:2.x-1.0.0
 
 * Now using semantic versioning for the base image
