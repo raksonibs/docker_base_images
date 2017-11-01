@@ -4,9 +4,14 @@ key_path=${1:-"$HOME/.ssh/id_rsa"}
 
 echo "
 This script will install a docker-ssh-exec server container.
-This allows your SSH key to be injected into docker containers in a safe and secure manor in order to facilitate installing private dependencies, deploying, etc.
+This allows your SSH key to be injected into docker containers in
+a safe and secure manner in order to facilitate installing private
+dependencies, deploying, etc.
 
-It's going to use the key located at $key_path.  If you'd like to use a different key, specify a path to the key as the first parameter to this script.
+It's going to use the key located at:
+$key_path
+If you'd like to use a different key, specify a path to the key as
+the first parameter to this script.
 "
 
 # Start the docker-ssh-container if not already started
@@ -41,7 +46,7 @@ docker run \
   $passphrase_cli_arg \
   &> /dev/null
 
-echo "Container Started"
+echo "Container started"
 
 # Create the network if it does not already exist
 if docker network inspect \!docker-ssh-exec &> /dev/null; then
