@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# Verify we're the owner of all files in this repo
+GIT_TOP_LEVEL="$(git rev-parse --show-toplevel 2> /dev/null)"
+if [ "$GIT_TOP_LEVEL" == "" ]; then
+  echo "Error: Not in a git repo"
+  exit 1
+fi
+WHOAMI="$(whoami)"
+if [[ $(find $GIT_TOP_LEVEL -nouser -or -not -user $WHOAMI) ]]; then
+  echo "Error: There are files in this repo that are not owned by $WHOAMI. This can"
+  echo "cause docker-sync to behave badly, so you'll want to re-chown your files."
+  echo "You can find those files with: find $GIT_TOP_LEVEL -nouser -or -not -user $WHOAMI"
+  exit 1
+fi
+
 # Start the docker-ssh-container if not already started
 if docker inspect docker-ssh-exec &> /dev/null; then
   echo "old (likely stale) docker-ssh-exec server found, removing"
