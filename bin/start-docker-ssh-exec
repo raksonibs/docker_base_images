@@ -1,6 +1,10 @@
 #!/bin/bash
 
 key_path=${1:-"$HOME/.ssh/id_rsa"}
+if [ ! -f $key_path ]; then
+  echo "Error: no ssh key file found at '$key_path'"
+  exit 1
+fi
 
 echo "
 This script will install a docker-ssh-exec server container.
