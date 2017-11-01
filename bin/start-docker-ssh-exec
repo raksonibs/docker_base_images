@@ -1,17 +1,37 @@
 #!/bin/bash
 
+key_path=${1:-"$HOME/.ssh/id_rsa"}
+if [ ! -f $key_path ]; then
+  echo "Error: no ssh key file found at '$key_path'"
+  exit 1
+fi
+
+echo "
+This script will install a docker-ssh-exec server container.
+This allows your SSH key to be injected into docker containers in
+a safe and secure manner in order to facilitate installing private
+dependencies, deploying, etc.
+
+It's going to use the key located at:
+$key_path
+If you'd like to use a different key, specify a path to the key as
+the first parameter to this script.
+"
+
 # Start the docker-ssh-container if not already started
 if docker inspect docker-ssh-exec &> /dev/null; then
-  echo "old (likely stale) docker-ssh-exec server found, removing"
+  echo "Old (likely stale) docker-ssh-exec server found, removing"
   docker stop docker-ssh-exec &> /dev/null
   docker rm docker-ssh-exec &> /dev/null
 fi
 
-echo "starting docker-ssh-exec server"
+echo "Starting docker-ssh-exec server"
 
-echo -n "ssh passphrase (leave blank for none): "
-read -s ssh_passphrase
-echo
+if grep -q ENCRYPTED $key_path; then
+  echo -n "The key located at $key_path requires a passphrase, please enter it here: "
+  read -s ssh_passphrase
+  echo
+fi
 
 # In case the image is not yet downloaded, silently pull it
 docker pull mdsol/docker-ssh-exec &> /dev/null
@@ -23,14 +43,14 @@ fi
 # Start docker-ssh-exec (with passphrase, if supplied)
 docker run \
   --restart always \
-  -v ~/.ssh/id_rsa:/root/.ssh/id_rsa \
+  -v $key_path:/root/.ssh/id_rsa \
   --name=docker-ssh-exec \
   -d mdsol/docker-ssh-exec \
   -server \
   $passphrase_cli_arg \
   &> /dev/null
 
-echo "container started"
+echo "Container started"
 
 # Create the network if it does not already exist
 if docker network inspect \!docker-ssh-exec &> /dev/null; then
@@ -42,10 +62,10 @@ fi
 
 # Connect to the network if it's not already connected
 if [[ $(docker inspect docker-ssh-exec -f '{{.NetworkSettings.Networks}}') =~ !docker-ssh-exec ]]; then
-  echo "container is already connected to the network"
+  echo "Container is already connected to the network"
 else
   docker network connect \!docker-ssh-exec docker-ssh-exec
-  echo "container connected to network"
+  echo "Container connected to network"
 fi
 
 echo "docker-ssh-exec is ready"
