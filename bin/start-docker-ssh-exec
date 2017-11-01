@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Verify we're the owner of all files in this repo
-GIT_TOP_LEVEL="$(git rev-parse --show-toplevel 2> /dev/null)"
-if [ "$GIT_TOP_LEVEL" == "" ]; then
+git_top_level="$(git rev-parse --show-toplevel 2> /dev/null)"
+if [ "$git_top_level" == "" ]; then
   echo "Error: Not in a git repo"
   exit 1
 fi
 WHOAMI="$(whoami)"
-if [[ $(find $GIT_TOP_LEVEL -nouser -or -not -user $WHOAMI) ]]; then
+if [[ $(find $git_top_level -nouser -or -not -user $WHOAMI) ]]; then
   echo "Error: There are files in this repo that are not owned by $WHOAMI. This can"
   echo "cause docker-sync to behave badly, so you'll want to re-chown your files."
-  echo "You can find those files with: find $GIT_TOP_LEVEL -nouser -or -not -user $WHOAMI"
+  echo "You can find those files with: find $git_top_level -nouser -or -not -user $WHOAMI"
   exit 1
 fi
 
