@@ -3,6 +3,7 @@ set -ex
 
 NODE_VERSION=${1:-4.1.2}
 
+# gpg keys listed at https://github.com/nodejs/node#release-team
 for key in \
   114F43EE0176B71C7BC219DD50A3051F888C628D \
   56730D5401028683275BD23C23EFEFE93C4CFFFE \
