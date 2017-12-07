@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # make sure redis is alive before proceeding
+PORT=${1:-6379}
 REDIS_UP=false
 for i in {1..10}; do
-  status=$(wget -qO- http://redis:7010/ping)
+  status=$(wget -qO- http://redis:$PORT/ping)
   if [ "$status" = "{\"ping\":\"PONG\"}" ]; then
     REDIS_UP=true
     break

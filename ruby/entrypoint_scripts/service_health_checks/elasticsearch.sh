@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # make sure ES is alive before proceeding
+PORT=${1:-9200}
 ES_UP=false
 for i in {1..10}; do
-  status=$(wget -qO- http://elastic:9200/_cat/health?h=status | tr -d [:space:])
+  status=$(wget -qO- http://elastic:$PORT/_cat/health?h=status | tr -d [:space:])
   if [ "$status" = "yellow" ] || [ "$status" = "green" ]; then
     ES_UP=true
     break
