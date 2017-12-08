@@ -3,9 +3,11 @@
 # make sure redis is alive before proceeding
 PORT=${1:-6379}
 REDIS_UP=false
+
 for i in {1..10}; do
-  status=$(wget -qO- http://redis:$PORT/ping)
-  if [ "$status" = "{\"ping\":\"PONG\"}" ]; then
+  # hack-ish way to hit redis healthcheck endpoint without redis-cli or netcat
+  status=$(exec 3<>/dev/tcp/redis/$PORT && echo -e "PING\r\n" >&3 && head -c 7 <&3)
+  if [[ "$status" == *"PONG"* ]]; then
     REDIS_UP=true
     break
   else
