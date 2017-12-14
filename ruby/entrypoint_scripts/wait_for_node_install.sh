@@ -11,7 +11,7 @@ for i in $(seq 1 $ITERATIONS); do
     npm ls --no-progress > /dev/null 2>&1
   fi
 
-  if $?; then
+  if [ $? = 0 ]; then
     NODE_READY=true
     break
   else
