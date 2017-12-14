@@ -20,4 +20,6 @@ if [ ! -z "${ELASTICSEARCH_HOST}" ]; then
     echo "Unable to connect to Elasticsearch. Please make sure your Elasticsearch container is running and healthy."
     exit 1
   fi
+else
+  echo "ELASTICSEARCH_HOST is not set. Skipping ES healthcheck."
 fi

@@ -24,10 +24,8 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Testing the images locally
 
-- Make your changes
-- Run `docker build . --build-arg RUBY_VERSION=2.3 -t base-image-test`
-- Temporarily replace the base image of the app you'd like to test against by editing its Dockerfile to say `FROM base-image-test:latest`.
-
+- Make your changes, then run `docker build . --build-arg RUBY_VERSION=2.3 -t base-image-test` to build your image
+- Temporarily replace the base image of the app you'd like to test against by editing its Dockerfile to say `FROM base-image-test:latest`
 
 ### Updating the images
 
