@@ -5,7 +5,7 @@ if [ ! -z "${ELASTICSEARCH_HOST}" ]; then
   PORT=${1:-9200}
   ES_UP=false
   for i in {1..10}; do
-    status=$(wget -qO- http://$ELASTICSEARCH_HOST:$PORT/_cat/health?h=status | tr -d [:space:])
+    status=$(wget -qO- http://$ELASTICSEARCH_HOST:$PORT/_cat/health?h=status || echo "failed" | tr -d [:space:])
     if [ "$status" = "yellow" ] || [ "$status" = "green" ]; then
       ES_UP=true
       break
