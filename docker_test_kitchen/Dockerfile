@@ -10,7 +10,7 @@ RUN apt-get update \
 	&& apt-get update \
 	&& apt-get install -y docker-engine=1.10.3-0~jessie \
   && rm -rf /var/lib/apt/lists/* \
-  && gem install bundler \
+  && gem install bundler -v 1.16.0 \
   && mkdir /app \
   && mkdir /app/tmp \
   && mkdir /root/.ssh \

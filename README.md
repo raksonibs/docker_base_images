@@ -4,13 +4,13 @@ The Dockerfiles in this repo are built and published publicly at https://hub.doc
 
 To update it:
 
-- Built it locally with a `docker build .` and note the resulting ID.
+- Build it locally with a `docker build .` and note the resulting ID.
 - Run `docker tag ID voxmedia/docker_base_images:docker_test_kitchen-VERSION`
 - `docker push voxmedia/docker_base_images:docker_test_kitchen-VERSION`
 
 ## Ruby Images
 
-The ruby base images include docker-ssh-exec and some standard entrypoint scripts. An example of an entrypoint script
+The ruby base images include `docker-ssh-exec` and some standard entrypoint scripts. An example of an entrypoint script
 using this image would look like this:
 
     #!/bin/bash
@@ -20,7 +20,12 @@ using this image would look like this:
     /opt/entrypoint/service_health_checks/mysql.sh
     exec docker-ssh-exec "$@"
 
-Note that this example includes `docker-ssh-exec` directly in the exec command, to make keys available to all commands without having to remember which commands require it and reference docker-ssh-exec manually.
+Note that this example includes `docker-ssh-exec` directly in the exec command, to make keys available to all commands without having to remember which commands require it and reference `docker-ssh-exec` manually.
+
+### Testing the images locally
+
+- Make your changes, then run `docker build . --build-arg RUBY_VERSION=2.3 -t base-image-test` to build your image
+- Temporarily replace the base image of the app you'd like to test against by editing its Dockerfile to say `FROM base-image-test:latest`
 
 ### Updating the images
 
@@ -29,6 +34,13 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 - Run `ruby/build.sh`
 
 ### Ruby images changelog
+
+#### Version ruby:2.x-1.1.2
+
+* Create NPM and Yarn entrypoint scripts (analogous to the pre-existing bundle.sh entrypoint script) that will ensure node packages are up to date.
+* Add Bundler and Node entrypoint scripts to ensure all package installations have completed before continuing.
+* Add healthcheck entrypoint scripts for Elasticsearch and Redis to ensure that the services are up and running before continuing.
+* Pin Bundler gem to latest version (1.16.0)
 
 #### Version ruby:2.x-1.1.0
 
