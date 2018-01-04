@@ -35,12 +35,16 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Ruby images changelog
 
-#### Version ruby:2.x-1.1.2
+#### Version ruby:2.x-1.2.0
 
 * Create NPM and Yarn entrypoint scripts (analogous to the pre-existing bundle.sh entrypoint script) that will ensure node packages are up to date.
 * Add Bundler and Node entrypoint scripts to ensure all package installations have completed before continuing.
 * Add healthcheck entrypoint scripts for Elasticsearch and Redis to ensure that the services are up and running before continuing.
 * Pin Bundler gem to latest version (1.16.0)
+
+#### Version ruby:2.x-1.1.1
+
+* Update GPG keys for node install
 
 #### Version ruby:2.x-1.1.0
 
