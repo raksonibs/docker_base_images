@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # default of 60 iterations = 600 seconds = 10 minutes
-ITERATIONS=${1:-60}
+ITERATIONS=${WAIT_FOR_BUNDLE:-60}
 BUNDLE_READY=false
 
 for i in $(seq 1 $ITERATIONS); do

@@ -2,7 +2,7 @@
 
 # make sure ES is alive before proceeding
 if [ ! -z "${ELASTICSEARCH_HOST}" ]; then
-  PORT=${1:-9200}
+  PORT=${ES_PORT:-9200}
   ES_UP=false
   for i in {1..10}; do
     status=$(wget -qO- http://$ELASTICSEARCH_HOST:$PORT/_cat/health?h=status || echo "failed" | tr -d [:space:])
