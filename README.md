@@ -35,11 +35,15 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Ruby images changelog
 
-#### Version ruby:2.x-1.2.0
+#### Version ruby:2.x-2.0.0
 
+* Create `ruby/entrypoint_scripts/dispatcher.sh` to standardize entrypoint script execution in apps.
 * Create NPM and Yarn entrypoint scripts (analogous to the pre-existing bundle.sh entrypoint script) that will ensure node packages are up to date.
 * Add Bundler and Node entrypoint scripts to ensure all package installations have completed before continuing.
 * Add healthcheck entrypoint scripts for Elasticsearch and Redis to ensure that the services are up and running before continuing.
+* Update the following entrypoint scripts to use environment variables instead of arguments. This is a **breaking change** for apps that pass in custom values.
+  * `use_dns_server.sh` (now uses $DNS_HOST)
+  * `service_health_checks/mysql.sh` (now uses $WAIT_FOR_MYSQL)
 * Pin Bundler gem to latest version (1.16.0)
 
 #### Version ruby:2.x-1.1.1
