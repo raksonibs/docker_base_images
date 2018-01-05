@@ -7,11 +7,11 @@ do
   if [[ "$arg" == "--" ]]; then
     shift
     break
-  elif [[ $arg == *".sh"* ]]; then
-    eval $arg
+  elif [[ -f $arg ]]; then
+    $arg
     shift
   else
-    eval "/opt/entrypoint/$arg.sh" $BASE_COMMAND
+    "/opt/entrypoint/$arg.sh" $BASE_COMMAND
     shift
   fi
 done
