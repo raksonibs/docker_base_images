@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # make sure redis is alive before proceeding
-PORT=${1:-6379}
+PORT=${REDIS_PORT:-6379}
 REDIS_UP=false
 
 for i in {1..10}; do

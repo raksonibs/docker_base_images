@@ -2,7 +2,7 @@
 
 # if DATABASE_HOST is present, make sure mysql is alve before proceeding
 if [ ! -z "${DATABASE_HOST}" ]; then
-  ITERATIONS=${1:-10}
+  ITERATIONS=${WAIT_FOR_MYSQL:-10}
   MYSQL_UP=false
   for i in $(seq 1 $ITERATIONS); do
     if mysqladmin ping -h ${DATABASE_HOST} --silent > /dev/null; then
