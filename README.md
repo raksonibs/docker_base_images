@@ -35,6 +35,10 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Ruby images changelog
 
+#### Version ruby:2.x-2.1.0
+
+* Updated base images to include newest point release, Ruby 2.5
+
 #### Version ruby:2.x-2.0.0
 
 * Create `ruby/entrypoint_scripts/dispatcher.sh` to standardize entrypoint script execution in apps.
