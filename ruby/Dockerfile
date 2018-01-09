@@ -1,11 +1,12 @@
 ARG RUBY_VERSION=latest
+ARG LIBMYSQLCLIENT=libmysqlclient-dev
 FROM ruby:${RUBY_VERSION}
 
 RUN echo "deb http://apt.gemnasium.com stable main" > /etc/apt/sources.list.d/gemnasium.list \
   && apt-key adv --recv-keys --keyserver keyserver.ubuntu.com E5CEAB0AC5F1CA2A \
   && apt-get update \
   && apt-get upgrade -y \
-  && apt-get install -y gemnasium-toolbelt libmysqlclient-dev mysql-client \
+  && apt-get install -y gemnasium-toolbelt ${LIBMYSQLCLIENT} mysql-client \
   && rm -rf /var/lib/apt/lists/* \
   && gem install bundler -v 1.16.0 \
   && mkdir /app \
