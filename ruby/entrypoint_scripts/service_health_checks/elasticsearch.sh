@@ -4,13 +4,13 @@
 if [ ! -z "${ELASTICSEARCH_HOST}" ]; then
   PORT=${ES_PORT:-9200}
   ES_UP=false
-  for i in {1..10}; do
+  for i in {1..15}; do
     status=$(wget -qO- http://$ELASTICSEARCH_HOST:$PORT/_cat/health?h=status || echo "failed" | tr -d [:space:])
     if [ "$status" = "yellow" ] || [ "$status" = "green" ]; then
       ES_UP=true
       break
     else
-      WAIT=$(($i>5?5:$i))
+      WAIT=$i
       echo "Waiting $WAIT seconds for Elasticsearch to start..."
       sleep $WAIT
     fi
