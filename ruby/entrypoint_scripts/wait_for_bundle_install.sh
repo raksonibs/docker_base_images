@@ -4,6 +4,8 @@
 ITERATIONS=${WAIT_FOR_BUNDLE:-60}
 BUNDLE_READY=false
 
+bundle config --delete without
+
 for i in $(seq 1 $ITERATIONS); do
   if bundle check > /dev/null; then
     BUNDLE_READY=true
