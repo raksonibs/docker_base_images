@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 
-NODE_VERSION=${1:-4.1.2}
+NODE_VERSION=${1:-8.9.4}
 
 # gpg keys listed at https://github.com/nodejs/node#release-team
 for key in \
