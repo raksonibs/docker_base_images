@@ -35,6 +35,13 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Ruby images changelog
 
+#### Version ruby:2.x-2.2.0
+
+* Updates `bundle.sh` and `wait_for_bundle_install.sh` entrypoint scripts to first remove any cached `without` config, to make sure they both check/install all depednencies.
+* Changes the elasticsearch healthcheck backoff strategy. Previous strategy was 10 iterations, with a progressively increasing wait per iteration but capped at 5 seconds. New strategy is 15 iterations with no cap on wait. Turns out the previous strategy was not waiting long enough in certain contexts.
+* Updates default node version (when unspecified) to a much newer version.
+* Adds an `install_yarn.sh` entrypoint script (and adds `apt-transport-https` to the base Dockerfile, to allow https apt sources -- needed for yarn, but generally useful to have anyway).
+
 #### Version ruby:2.x-2.1.0
 
 * Updated base images to include newest point release, Ruby 2.5
