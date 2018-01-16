@@ -35,6 +35,10 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Ruby images changelog
 
+#### Version ruby:2.x-2.3.0
+
+* Adds the `-y` flag to the `install_yarn.sh` script to prevent prompts from interrupting the installation.
+
 #### Version ruby:2.x-2.2.0
 
 * Updates `bundle.sh` and `wait_for_bundle_install.sh` entrypoint scripts to first remove any cached `without` config, to make sure they both check/install all depednencies.
