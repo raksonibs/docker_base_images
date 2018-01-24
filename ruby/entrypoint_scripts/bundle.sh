@@ -1,6 +1,7 @@
 #!/bin/bash
-if [ "$1" != "bundle" ]; then
+if [[ "$1" != "bundle" ]]; then
   echo "Checking bundle"
-  bundle config --delete without
-  bundle check || bundle install
+  if ! [ bundle check ]; then
+    [[ $RAILS_ENV == "development" ]] && bundle install || bundle install --without development test
+  fi
 fi
