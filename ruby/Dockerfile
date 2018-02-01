@@ -16,7 +16,9 @@ RUN echo "deb http://apt.gemnasium.com stable main" > /etc/apt/sources.list.d/ge
 
 # Setup a common bundler configuration
 ENV BUNDLE_JOBS=4 \
-    BUNDLE_APP_CONFIG=/root/.bundle
+    BUNDLE_APP_CONFIG=/root/.bundle \
+    PATH=$BUNDLE_BIN:$PATH
+    
 
 ENV LC_ALL C.UTF-8
 
