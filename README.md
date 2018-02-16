@@ -35,6 +35,10 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Ruby images changelog
 
+#### Version ruby:2.x-2.4.1
+
+* Adds `-q` to the pip install script to quiet it -- it was being way too verbose.
+
 #### Version ruby:2.x-2.4.0
 
 * Adds `install_python.sh` build script and the `pip.sh` entrypoint script.
