@@ -1,17 +1,16 @@
-# Direct copy/paste from the standard `python:2` base image
+# Ported from the standard `python:2` base image
 # See https://github.com/docker-library/python/blob/b1512ead24c6b111506a8d4229134a29da240597/2.7/jessie/Dockerfile
 
 # runtime dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+apt-get update && apt-get install -y --no-install-recommends \
     tcl \
     tk \
   && rm -rf /var/lib/apt/lists/*
 
-ENV GPG_KEY C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF
-ENV PYTHON_VERSION 2.7.14
+GPG_KEY=C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF
+export PYTHON_VERSION=2.7.14
 
-RUN set -ex \
-  && buildDeps=' \
+buildDeps=' \
     dpkg-dev \
     tcl-dev \
     tk-dev \
@@ -49,11 +48,9 @@ RUN set -ex \
   && rm -rf /usr/src/python
 
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
-ENV PYTHON_PIP_VERSION 9.0.1
+export PYTHON_PIP_VERSION=9.0.1
 
-RUN set -ex; \
-  \
-  wget -O get-pip.py 'https://bootstrap.pypa.io/get-pip.py'; \
+wget -O get-pip.py 'https://bootstrap.pypa.io/get-pip.py'; \
   \
   python get-pip.py \
     --disable-pip-version-check \
@@ -71,4 +68,4 @@ RUN set -ex; \
   rm -f get-pip.py
 
 # install "virtualenv", since the vast majority of users of this image will want it
-RUN pip install --no-cache-dir virtualenv
+pip install --no-cache-dir virtualenv
