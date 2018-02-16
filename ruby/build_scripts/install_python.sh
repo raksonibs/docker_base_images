@@ -1,6 +1,10 @@
 # Ported from the standard `python:2` base image
 # See https://github.com/docker-library/python/blob/b1512ead24c6b111506a8d4229134a29da240597/2.7/jessie/Dockerfile
 
+# python dev headers
+apt-get update && apt-get install -y python-dev \
+  && rm -rf /var/lib/apt/lists/*
+
 # runtime dependencies
 apt-get update && apt-get install -y --no-install-recommends \
     tcl \
