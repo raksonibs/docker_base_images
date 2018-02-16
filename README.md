@@ -35,6 +35,10 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Ruby images changelog
 
+#### Version ruby:2.x-2.4.0
+
+* Adds `install_python.sh` build script and the `pip.sh` entrypoint script.
+
 #### Version ruby:2.x-2.3.0
 
 * Adds the `-y` flag to the `install_yarn.sh` script to prevent prompts from interrupting the installation.
