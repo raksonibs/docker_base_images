@@ -1,0 +1,24 @@
+#!/bin/bash
+
+echo "
+This script will update the host crontab to force the syncing
+of the docker service clock to the host clock by adding the line
+
+* * * * * /usr/local/bin/docker run --rm --privileged alpine hwclock -s
+"
+
+# Check if the entry already exists in the crontab
+if sudo crontab -l | grep -q "/usr/local/bin/docker run --rm --privileged alpine hwclock -s"; then
+  echo "
+    An existing entry in crontab was found -- nothing to do.
+  "
+else
+  # add the line to the crontab
+  sudo crontab <<EOF
+  * * * * * /usr/local/bin/docker run --rm --privileged alpine hwclock -s
+EOF
+
+  echo "
+    crontab was updated successfully.
+  "
+fi
