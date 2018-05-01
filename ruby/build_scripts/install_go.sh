@@ -3,7 +3,8 @@ set -Eeuo pipefail
 
 # need to install jq to parse the response from the golang version api
 apt-get update
-apt-get install jq
+apt-get install -y jq
+rm -rf /var/lib/apt/lists/*
 
 # https://github.com/golang/go/issues/13220
 allGoVersions=()
