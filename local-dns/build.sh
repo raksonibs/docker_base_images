@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
-TAG="voxmedia/local-dns:$(cat VERSION)"
+TAG="docker.voxops.net/local-dns:$(cat VERSION)"
 docker build --no-cache -t $TAG .
 docker push $TAG
