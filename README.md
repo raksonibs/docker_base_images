@@ -24,16 +24,28 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Testing the images locally
 
-- Make your changes, then run `docker build . --build-arg RUBY_VERSION=2.3 -t base-image-test` to build your image
+- Make your changes, then run `docker build ./ruby --build-arg RUBY_VERSION=2.3 -t base-image-test` to build your image
 - Temporarily replace the base image of the app you'd like to test against by editing its Dockerfile to say `FROM base-image-test:latest`
 
 ### Updating the images
 
 - Make your changes
 - Bump the version in `VERSION`
-- Merge to master.  Jenkins will build and push the images.
+- Jenkins will build and push on merge to master.
 
 ### Ruby images changelog
+
+#### Version ruby:2.x-2.5.0
+
+* Adds `install_go.sh` build script and the `build_go.sh` entrypoint script
+
+#### Version ruby:2.x-2.4.1
+
+* Adds `-q` to the pip install script to quiet it -- it was being way too verbose.
+
+#### Version ruby:2.x-2.4.0
+
+* Adds `install_python.sh` build script and the `pip.sh` entrypoint script.
 
 #### Version ruby:2.x-2.3.0
 

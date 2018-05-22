@@ -6,6 +6,6 @@ for ruby in ${ruby_versions[@]}
 do
 	tag="voxmedia/ruby:$ruby-$version"
 	[[ $ruby == "2.5" ]] && libmysqlclient="default-libmysqlclient-dev" || libmysqlclient="libmysqlclient-dev"
-	docker build . --build-arg RUBY_VERSION=$ruby --build-arg LIBMYSQLCLIENT=$libmysqlclient -t $tag
+	docker build . --no-cache --build-arg RUBY_VERSION=$ruby --build-arg LIBMYSQLCLIENT=$libmysqlclient -t $tag
 	docker push $tag
 done
