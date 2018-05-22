@@ -26,7 +26,7 @@ pipeline {
         stage('ruby') { steps { lint('ruby') } }
       }
     }
-    stage('Build') {
+    stage('Build and Push') {
       parallel {
         stage('local-dns') { steps { dockerBuildAndPush('local-dns') } }
         stage('ruby 2.2') { steps { rubyDockerBuildAndPush('2.2') } }
