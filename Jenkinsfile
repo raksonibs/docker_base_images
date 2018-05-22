@@ -1,5 +1,9 @@
 properties(defaultVars.projectProperties)
 
+def lint(image) {
+  sh "docker run -v $(pwd)/${image}/Dockerfile:/Dockerfile replicated/dockerfilelint /Dockerfile"
+}
+
 def rubyDockerBuildAndPush(rubyVersion) {
   libmysqlclient = rubyVersion == '2.5' ? 'default-libmysqlclient-dev' : 'libmysqlclient-dev'
   buildArgs = "--build-arg RUBY_VERSION=${rubyVersion} --build-arg LIBMYSQLCLIENT=${libmysqlclient}"
@@ -16,6 +20,11 @@ def dockerBuildAndPush(image, buildArgs = '') {
 pipeline {
   agent any
   stages {
+    stage('Lint') {
+      parallel {
+        stage('local-dns') { steps { lint('local-dns') } }
+      }
+    }
     stage('Build') {
       parallel {
         stage('local-dns') { steps { dockerBuildAndPush('local-dns') } }
