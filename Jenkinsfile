@@ -7,7 +7,7 @@ pipeline {
   }
   stages {
     stage('Build') {
-      steps { sh "docker build --no-cache -t docker.voxops.net/local-dns:$DNS_TAG ." }
+      steps { sh "docker build --no-cache -t docker.voxops.net/local-dns:$DNS_TAG local-dns" }
     }
     stage('Push') {
       when { branch 'master' }
