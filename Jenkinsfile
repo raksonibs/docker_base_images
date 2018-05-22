@@ -1,7 +1,7 @@
 properties(defaultVars.projectProperties)
 
 def lint(image) {
-  sh "docker run -v $(pwd)/${image}/Dockerfile:/Dockerfile replicated/dockerfilelint /Dockerfile"
+  sh "docker run -v \$(pwd)/${image}/Dockerfile:/Dockerfile replicated/dockerfilelint /Dockerfile"
 }
 
 def rubyDockerBuildAndPush(rubyVersion) {
