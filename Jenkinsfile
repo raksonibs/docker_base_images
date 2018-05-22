@@ -1,7 +1,7 @@
 properties(defaultVars.projectProperties)
 
 def lint(image) {
-  sh "docker run -v \$(pwd)/${image}/Dockerfile:/Dockerfile replicated/dockerfilelint /Dockerfile"
+  sh "docker run -v \$(pwd)/${image}/Dockerfile:/Dockerfile -v \$(pwd)/${image}/.dockerfilelintrc:/.dockerfilelintrc replicated/dockerfilelint /Dockerfile"
 }
 
 def rubyDockerBuildAndPush(rubyVersion) {
@@ -23,6 +23,7 @@ pipeline {
     stage('Lint') {
       parallel {
         stage('local-dns') { steps { lint('local-dns') } }
+        stage('ruby') { steps { lint('ruby') } }
       }
     }
     stage('Build') {

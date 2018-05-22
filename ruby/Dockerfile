@@ -4,8 +4,7 @@ FROM ruby:${RUBY_VERSION}
 
 RUN apt-key adv --recv-keys --keyserver keyserver.ubuntu.com E5CEAB0AC5F1CA2A \
   && apt-get update \
-  && apt-get upgrade -y \
-  && apt-get install -y ${LIBMYSQLCLIENT} mysql-client apt-transport-https \
+  && apt-get install -y ${LIBMYSQLCLIENT} mysql-client apt-transport-https --no-install-recommends \
   && rm -rf /var/lib/apt/lists/* \
   && gem install bundler -v 1.16.0 \
   && mkdir /app \
