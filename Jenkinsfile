@@ -19,10 +19,12 @@ pipeline {
           script { if (env.BRANCH == 'master') { sh "docker push docker.voxops.net/local-dns:$version" } }
         }
       }
-      stage('ruby 2.2') { steps { rubyDockerBuild('2.2') } }
-      stage('ruby 2.2') { steps { rubyDockerBuild('2.3') } }
-      stage('ruby 2.2') { steps { rubyDockerBuild('2.4') } }
-      stage('ruby 2.2') { steps { rubyDockerBuild('2.5') } }
+      stage('ruby 2.2') {
+        steps { echo 'build ruby 2.2' } // steps { rubyDockerBuild('2.2') }
+      }
+      // stage('ruby 2.2') { steps { rubyDockerBuild('2.3') } }
+      // stage('ruby 2.2') { steps { rubyDockerBuild('2.4') } }
+      // stage('ruby 2.2') { steps { rubyDockerBuild('2.5') } }
     }
   }
 }
