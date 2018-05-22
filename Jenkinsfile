@@ -1,11 +1,9 @@
 properties(defaultVars.projectProperties)
 
-def getTag(name) { new File("${name}/VERSION").text }
-
 pipeline {
   agent any
   environment {
-    DNS_TAG = getTag('local-dns')
+    DNS_TAG = sh(returnStdout: true, script: 'cat local-dns/VERSION').trim()
   }
   stages {
     stage('Build') {
