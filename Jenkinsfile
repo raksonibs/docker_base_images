@@ -3,6 +3,7 @@ properties(defaultVars.projectProperties)
 def getTag(name) { new File("${name}/VERSION").text }
 
 pipeline {
+  agent any
   environment {
     DNS_TAG = getTag('local-dns')
   }
