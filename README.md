@@ -35,6 +35,10 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 ### Ruby images changelog
 
+#### Version ruby:2.x-2.5.1
+
+* Removes gemnasium
+
 #### Version ruby:2.x-2.5.0
 
 * Adds `install_go.sh` build script and the `build_go.sh` entrypoint script
