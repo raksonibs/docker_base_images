@@ -31,7 +31,7 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 - Make your changes
 - Bump the version in `VERSION`
-- Run `ruby/build.sh`
+- Merge to master.  Jenkins will build and push the images.
 
 ### Ruby images changelog
 
