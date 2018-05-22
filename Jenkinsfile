@@ -20,9 +20,9 @@ pipeline {
       parallel {
         stage('local-dns') { steps { dockerBuildAndPush('local-dns') } }
         stage('ruby 2.2') { steps { rubyDockerBuildAndPush('2.2') } }
-        // stage('ruby 2.3') { steps { rubyDockerBuildAndPush('2.3') } }
-        // stage('ruby 2.4') { steps { rubyDockerBuildAndPush('2.4') } }
-        // stage('ruby 2.5') { steps { rubyDockerBuildAndPush('2.5') } }
+        stage('ruby 2.3') { steps { rubyDockerBuildAndPush('2.3') } }
+        stage('ruby 2.4') { steps { rubyDockerBuildAndPush('2.4') } }
+        stage('ruby 2.5') { steps { rubyDockerBuildAndPush('2.5') } }
       }
     }
   }
