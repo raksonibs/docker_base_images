@@ -29,11 +29,6 @@ For example, to set up an entrypoint that includes docker-ssh-exec, updates the 
       - service_health_checks/elasticsearch
       - --
 
-### Testing the images locally
-
-- Make your changes, then run `docker build ./ruby --build-arg RUBY_VERSION=2.3 -t base-image-test` to build your image
-- Temporarily replace the base image of the app you'd like to test against by editing its Dockerfile to say `FROM base-image-test:latest`
-
 ### Versioning
 
 A version of this image is released for each supported version of ruby (2.2, 2.3, 2.4, 2.5).
@@ -41,6 +36,11 @@ A version of this image is released for each supported version of ruby (2.2, 2.3
 The images are tagged `voxmedia/ruby:2.x-A.B.C`, where `2.x` is the ruby version and `A.B.C` is the image version. The image version uses [semantic versioning](https://semver.org).
 
 And all updates are recorded in a running [CHANGELOG](https://github.com/voxmedia/docker_base_images/blob/master/ruby/CHANGELOG.md).
+
+### Testing the images locally
+
+- Make your changes, then run `docker build ./ruby --build-arg RUBY_VERSION=2.3 -t base-image-test` to build your image
+- Temporarily replace the base image of the app you'd like to test against by editing its Dockerfile to say `FROM base-image-test:latest`
 
 ### Updating the images
 
