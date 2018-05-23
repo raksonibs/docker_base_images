@@ -62,7 +62,7 @@ This allows us to set up standard local hostnames so that containers in differen
 
 The dns server is not included by default. To use it:
 
-* Add the localdns container as a service in the development env's docker-compose, to make the dns server available to containers that want to use it. E.g.:
+* Add the localdns container as a service in the development env's docker-compose, e.g.:
 
       services:
         dns:
