@@ -64,19 +64,19 @@ The dns server is not included by default. To use it:
 
 * Add the localdns container as a service in the development env's docker-compose, to make the dns server available to containers that want to use it. E.g.:
 
-    services:
-      dns:
-        image: voxmedia/local-dns:A.B.C
+      services:
+        dns:
+          image: voxmedia/local-dns:A.B.C
 
 * Set up the necessary containers to depend upon this service, and include `use_dns_server` in the entrypoint dispatch (this updates the container's resolve.conf to use this local dns server instead of standard dns), e.g.:
 
-    app:
-      depends_on:
-        - dns
-      entrypoint:
-        - /opt/entrypoint/dispatcher.sh
-        - use_dns_server
-        - --
+      app:
+        depends_on:
+          - dns
+        entrypoint:
+          - /opt/entrypoint/dispatcher.sh
+          - use_dns_server
+          - --
 
 ### Versioning
 
