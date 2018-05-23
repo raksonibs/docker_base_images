@@ -70,13 +70,14 @@ The dns server is not included by default. To use it:
 
 * Set up the necessary containers to depend upon this service, and include `use_dns_server` in the entrypoint dispatch (this updates the container's resolve.conf to use this local dns server instead of standard dns), e.g.:
 
-      app:
-        depends_on:
-          - dns
-        entrypoint:
-          - /opt/entrypoint/dispatcher.sh
-          - use_dns_server
-          - --
+      services:
+        app:
+          depends_on:
+            - dns
+          entrypoint:
+            - /opt/entrypoint/dispatcher.sh
+            - use_dns_server
+            - --
 
 ### Versioning
 
