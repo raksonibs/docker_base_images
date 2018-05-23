@@ -1,26 +1,41 @@
-The Dockerfiles in this repo are built and published publicly at https://hub.docker.com/r/voxmedia
+The Dockerfiles in this repo are built and published into our private docker repo at https://docker.voxops.net. All images are tagged `voxmedia/image_name:A.B.C`, where `A.B.C` is the image version. Images should use [semantic versioning](https://semver.org).
 
-## Docker Test Kitchen Images
+## Ruby base image
 
-To update it:
+This is the standard base image used by the majority of our applications, containing common image components. It is geared towards ruby apps, but contains useful functionality for other languages as well. This image contains:
 
-- Build it locally with a `docker build .` and note the resulting ID.
-- Run `docker tag ID voxmedia/docker_base_images:docker_test_kitchen-VERSION`
-- `docker push voxmedia/docker_base_images:docker_test_kitchen-VERSION`
+* A collection of build scripts (e.g. `install_node.sh`)
+* A collection of entrypoint scripts (e.g. `bundle.sh`)
+* The `docker-ssh-exec` client
+* Bundler configs
+* Mysql command line tools
 
-## Ruby Images
+The build scripts (located at `/opt/build/*` in the image) are intended to be called as needed by individual repos that derive from this base image. For example, if a particular repo requires node, the Dockerfile of that repo can call the included build script via `RUN /opt/build/install_node.sh 8.9.4`.
 
-The ruby base images include `docker-ssh-exec` and some standard entrypoint scripts. An example of an entrypoint script
-using this image would look like this:
+The entrypoint scripts (located at `/opt/entrypoint/*` in the image) are also included as needed, but not directly. We have a `dispatcher` script that is responsible for calling out to the necessary entrypoints. This system can be used to set up entrypoints for both docker-compose and for containers defined in helm chart container specs.
 
-    #!/bin/bash
-    set -e
-    docker-ssh-exec /opt/entrypoint/bundle.sh $1
-    /opt/entrypoint/cleanup_pids.sh
-    /opt/entrypoint/service_health_checks/mysql.sh
-    exec docker-ssh-exec "$@"
+The dispatcher takes a number of arguments, calling each in turn. The arguments are either a bare word, in which case it looks for an entrypoint file named that at /opt/entrypoint, or they can be fully qualified filenames with paths, for any entrypoint script that is not in that directory (e.g. for a specific repo's custom entrypoint). A `--` argument represents the end of the dispatch scripts and the beginning of the command.
 
-Note that this example includes `docker-ssh-exec` directly in the exec command, to make keys available to all commands without having to remember which commands require it and reference `docker-ssh-exec` manually.
+If the entrypoint requires docker-ssh-exec, we can wrap the whole thing by calling `docker-ssh-exec <dispatcher + entrypoints>`, making docker-ssh-exec available throughout.
+
+For example, to set up an entrypoint that includes docker-ssh-exec, updates the bundle and yarn packages, and performs service health checks for mysql and elasticsearch, the entrypoint definition might look like this:
+
+    entrypoint:
+      - docker-ssh-exec
+      - /opt/entrypoint/dispatcher.sh
+      - bundle
+      - yarn
+      - service_health_checks/mysql
+      - service_health_checks/elasticsearch
+      - --
+
+### Versioning
+
+A version of this image is released for each supported version of ruby (2.2, 2.3, 2.4, 2.5).
+
+The images are tagged `voxmedia/ruby:2.x-A.B.C`, where `2.x` is the ruby version and `A.B.C` is the image version. The image version uses [semantic versioning](https://semver.org).
+
+And all updates are recorded in a running [CHANGELOG](https://github.com/voxmedia/docker_base_images/blob/master/ruby/CHANGELOG.md).
 
 ### Testing the images locally
 
@@ -30,114 +45,54 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 ### Updating the images
 
 - Make your changes
+- Bump the version in `VERSION` and record the change in `CHANGELOG.md`
+- Jenkins will build and push on merge to master.
+
+## Local DNS
+
+### How it works
+
+This image contains a simple dns server designed to be used in the development environment only. From within any container that uses this dns server, all references to `*.local.sbndev.net` resolve to the ip address of the host machine (and all other dns forwarded back through regular dns servers). Note that `*.local.sbndev.net` has a _real_ dns entry too, that resolves to localhost, and this dns server shadows that dns entry.
+
+So from within a container, those hostnames resolve to the host machine, and from the host machine (which does not use this dns server), those hostnames resolve to localhost, which is also the host machine.
+
+This allows us to set up standard local hostnames so that containers in different apps can reference each other. Typically we expose the running app container on a particular port on the host machine. For example, hermano is exposed on port 5000. From within another app, e.g. sbn, the hermano app can then be referenced at `hermano.local.sbndev.net:5000`. From within the container, `hermano.local.sbndev.net:5000` resolves to the ip of the host machine at port 5000, which is exactly where the running hermano service is exposed.
+
+### How to use it
+
+The dns server is not included by default. To use it:
+
+* Add the localdns container as a service in the development env's docker-compose, e.g.:
+
+      services:
+        dns:
+          image: voxmedia/local-dns:A.B.C
+
+* Set up the necessary containers to depend upon this service, and include `use_dns_server` in the entrypoint dispatch (this updates the container's resolve.conf to use this local dns server instead of standard dns), e.g.:
+
+      services:
+        app:
+          depends_on:
+            - dns
+          entrypoint:
+            - /opt/entrypoint/dispatcher.sh
+            - use_dns_server
+            - --
+
+### Versioning
+
+The image is tagged `voxmedia/local-dns:A.B.C`, where `A.B.C` is the image version. The image version uses [semantic versioning](https://semver.org).
+
+### Updating the images
+
+- Make your changes
 - Bump the version in `VERSION`
 - Jenkins will build and push on merge to master.
 
-### Ruby images changelog
+## Docker Test Kitchen Images
 
-#### Version ruby:2.x-2.5.1
+To update it:
 
-* Removes gemnasium
-* Moves from dockerhub to docker.voxops.net
-
-#### Version ruby:2.x-2.5.0
-
-* Adds `install_go.sh` build script and the `build_go.sh` entrypoint script
-
-#### Version ruby:2.x-2.4.1
-
-* Adds `-q` to the pip install script to quiet it -- it was being way too verbose.
-
-#### Version ruby:2.x-2.4.0
-
-* Adds `install_python.sh` build script and the `pip.sh` entrypoint script.
-
-#### Version ruby:2.x-2.3.0
-
-* Adds the `-y` flag to the `install_yarn.sh` script to prevent prompts from interrupting the installation.
-
-#### Version ruby:2.x-2.2.0
-
-* Updates `bundle.sh` and `wait_for_bundle_install.sh` entrypoint scripts to first remove any cached `without` config, to make sure they both check/install all depednencies.
-* Changes the elasticsearch healthcheck backoff strategy. Previous strategy was 10 iterations, with a progressively increasing wait per iteration but capped at 5 seconds. New strategy is 15 iterations with no cap on wait. Turns out the previous strategy was not waiting long enough in certain contexts.
-* Updates default node version (when unspecified) to a much newer version.
-* Adds an `install_yarn.sh` entrypoint script (and adds `apt-transport-https` to the base Dockerfile, to allow https apt sources -- needed for yarn, but generally useful to have anyway).
-
-#### Version ruby:2.x-2.1.0
-
-* Updated base images to include newest point release, Ruby 2.5
-
-#### Version ruby:2.x-2.0.0
-
-* Create `ruby/entrypoint_scripts/dispatcher.sh` to standardize entrypoint script execution in apps.
-* Create NPM and Yarn entrypoint scripts (analogous to the pre-existing bundle.sh entrypoint script) that will ensure node packages are up to date.
-* Add Bundler and Node entrypoint scripts to ensure all package installations have completed before continuing.
-* Add healthcheck entrypoint scripts for Elasticsearch and Redis to ensure that the services are up and running before continuing.
-* Update the following entrypoint scripts to use environment variables instead of arguments. This is a **breaking change** for apps that pass in custom values.
-  * `use_dns_server.sh` (now uses $DNS_HOST)
-  * `service_health_checks/mysql.sh` (now uses $WAIT_FOR_MYSQL)
-* Pin Bundler gem to latest version (1.16.0)
-
-#### Version ruby:2.x-1.1.1
-
-* Update GPG keys for node install
-
-#### Version ruby:2.x-1.1.0
-
-* Sets it up so that if the dns server name passed in doesn't resolve, then make it a no-op
-
-#### Version ruby:2.x-1.0.0
-
-* Now using semantic versioning for the base image
-* Added entrypoint script `use_dns_server.sh` (can't use the docker-compose "dns" option because that only accepts static ip addresses)
-
-#### Version ruby:2.x-0.10
-
-* Set it up to only do the bundle check/install step if not directly running a bundle command already
-
-#### Version ruby:2.x-0.9
-
-* Fix some syntax errors accidentally introduced in 0.8
-
-#### Version ruby:2.x-0.8
-
-* Bundle install actually doesn't need docker-ssh-exec, it needs to be outside.
-
-#### Version ruby:2.x-0.7
-
-* Bundle install needs docker-ssh-exec
-
-#### Version ruby:2.x-0.6
-
-* Switch to linear backoff with a maximum of 5 seconds
-
-#### Version ruby:2.x-0.5
-
-* The image is now `ruby` instead of `docker_base_images`
-* Added `#!/bin/bash` to all entrypoint scripts
-
-#### Version docker_base_images:ruby_2.3-0.4
-
-* Adds bundle entrypoint script
-* Adjusts MySQL health-check to use exponential backoff, and allow setting iteration count via parameter
-
-#### Version docker_base_images:ruby_2.3-0.3
-
-* Updated ruby to 2.2.8, 2.3.5, and 2.4.2 to address CVEs
-* Tags are now  `docker_base_images:ruby_2.2-0.3` and corresponding for ruby 2.3 and 2.4
-* Moved all the functionality of the `rails` image into the base `ruby` images
-
-#### Version docker_base_images:rails_0.3
-
-* Adds `install_phantomjs.sh` build script.
-
-#### Version docker_base_images:rails_0.2
-
-* Adds a `build_scripts` directory with an `install_node.sh` script. It's not run automatically--child images can choose to run if it necessary.
-
-#### Version docker_base_images:rails_0.1
-
-* Initial rails base image
-* Sets locale C.UTF-8, adds docker-ssh-exec, adds entrypoint helper scripts
-* Entrypoint script for cleaning stale pids that rails leaves around
-* Entrypoint script for mysql service health check
+- Build it locally with a `docker build .` and note the resulting ID.
+- Run `docker tag ID voxmedia/docker_base_images:docker_test_kitchen-VERSION`
+- `docker push voxmedia/docker_base_images:docker_test_kitchen-VERSION`
