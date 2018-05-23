@@ -1,5 +1,11 @@
 The Dockerfiles in this repo are built and published into our private docker repo at https://docker.voxops.net. All images are tagged `voxmedia/image_name:A.B.C`, where `A.B.C` is the image version. Images should use [semantic versioning](https://semver.org).
 
+## Index
+
+* [Ruby base image](#ruby-base-image)
+* [Local DNS](#local-dns)
+* [Bin scripts](#bin-scripts)
+
 ## Ruby base image
 
 This is the standard base image used by the majority of our applications, containing common image components. It is geared towards ruby apps, but contains useful functionality for other languages as well. This image contains:
@@ -88,3 +94,8 @@ The image is tagged `voxmedia/local-dns:A.B.C`, where `A.B.C` is the image versi
 - Make your changes
 - Bump the version in `VERSION`
 - Jenkins will build and push on merge to master.
+
+## Bin scripts
+
+* `start-docker-ssh-exec` -- A convenience script for developers to start the docker ssh exec server on their local machines. For more information, see the docker guide section about this at https://github.com/voxmedia/411/wiki/Docker-guide#docker-ssh-exec
+* `sync-docker-to-hwclock` -- Another convenience script for developers to solve a problem with file sync issues caused by docker clock drifting out of sync with host clock. For more inormation, see https://github.com/voxmedia/411/wiki/Docker-guide#are-you-getting-strange-file-sync-issues
