@@ -81,7 +81,7 @@ The dns server is not included by default. To use it:
 
 ### Versioning
 
-The images are tagged `voxmedia/local-dns:A.B.C`, where `A.B.C` is the image version. The image version uses [semantic versioning](https://semver.org).
+The image is tagged `voxmedia/local-dns:A.B.C`, where `A.B.C` is the image version. The image version uses [semantic versioning](https://semver.org).
 
 ### Updating the images
 
