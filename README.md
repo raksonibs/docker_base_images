@@ -56,7 +56,7 @@ This image contains a simple dns server designed to be used in the development e
 
 So from within a container, those hostnames resolve to the host machine, and from the host machine (which does not use this dns server), those hostnames resolve to localhost, which is also the host machine.
 
-This allows us to set up standard local hostnames so that containers in different apps can reference each other. Typically we expose the running app container on a particular port on the host machine. For example, hermano is exposed on port 5000. From within another app, e.g. sbn, the hermano app can then be referenced at `hermano.local.sbndev.net:5000`. From within the container, `hermano.local.sbndev.net:5000` resolves to the ip of the host machine at port 5000, which is exactly where the running hermano service is located.
+This allows us to set up standard local hostnames so that containers in different apps can reference each other. Typically we expose the running app container on a particular port on the host machine. For example, hermano is exposed on port 5000. From within another app, e.g. sbn, the hermano app can then be referenced at `hermano.local.sbndev.net:5000`. From within the container, `hermano.local.sbndev.net:5000` resolves to the ip of the host machine at port 5000, which is exactly where the running hermano service is exposed.
 
 ### How to use it
 
