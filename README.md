@@ -1,12 +1,4 @@
-The Dockerfiles in this repo are built and published publicly at https://hub.docker.com/r/voxmedia
-
-## Docker Test Kitchen Images
-
-To update it:
-
-- Build it locally with a `docker build .` and note the resulting ID.
-- Run `docker tag ID voxmedia/docker_base_images:docker_test_kitchen-VERSION`
-- `docker push voxmedia/docker_base_images:docker_test_kitchen-VERSION`
+The Dockerfiles in this repo are built and published privately at https://docker.voxops.net
 
 ## Ruby Images
 
