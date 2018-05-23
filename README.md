@@ -1,4 +1,4 @@
-The Dockerfiles in this repo are built and published publicly at https://hub.docker.com/r/voxmedia
+The Dockerfiles in this repo are built and published into our private docker repo at https://docker.voxops.net. All images are tagged `voxmedia/image_name:A.B.C`, where `A.B.C` is the image version. Images should use [semantic versioning](https://semver.org).
 
 ## Ruby base image
 
