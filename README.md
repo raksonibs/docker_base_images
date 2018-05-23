@@ -38,6 +38,7 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 #### Version ruby:2.x-2.5.1
 
 * Removes gemnasium
+* Moves from dockerhub to docker.voxops.net
 
 #### Version ruby:2.x-2.5.0
 
