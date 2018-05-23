@@ -31,9 +31,13 @@ Note that this example includes `docker-ssh-exec` directly in the exec command, 
 
 - Make your changes
 - Bump the version in `VERSION`
-- Run `ruby/build.sh`
+- Jenkins will build and push on merge to master.
 
 ### Ruby images changelog
+
+#### Version ruby:2.x-2.5.1
+
+* Removes gemnasium
 
 #### Version ruby:2.x-2.5.0
 
