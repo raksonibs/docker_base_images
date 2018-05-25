@@ -13,7 +13,7 @@ def rubyDockerBuildAndPush(rubyVersion, branch) {
 def dockerBuildAndPush(image, branch, buildArgs = '') {
   version = sh(returnStdout: true, script: "cat ${image}/VERSION").trim()
   tag = "docker.voxops.net/${image}:${version}"
-  sh "docker build ${image} ${buildArgs} --no-cache -t ${tag}"
+  sh "docker build ${image} ${buildArgs} -t ${tag}"
   if (branch == 'master') { sh "docker push ${tag}" }
 }
 
@@ -29,10 +29,10 @@ pipeline {
     stage('Build and Push') {
       parallel {
         stage('local-dns') { steps { dockerBuildAndPush('local-dns', env.GIT_BRANCH) } }
-        stage('ruby 2.2') { steps { rubyDockerBuildAndPush('2.2', env.GIT_BRANCH) } }
-        stage('ruby 2.3') { steps { rubyDockerBuildAndPush('2.3', env.GIT_BRANCH) } }
-        stage('ruby 2.4') { steps { rubyDockerBuildAndPush('2.4', env.GIT_BRANCH) } }
-        stage('ruby 2.5') { steps { rubyDockerBuildAndPush('2.5', env.GIT_BRANCH) } }
+        // stage('ruby 2.2') { steps { rubyDockerBuildAndPush('2.2', env.GIT_BRANCH) } }
+        // stage('ruby 2.3') { steps { rubyDockerBuildAndPush('2.3', env.GIT_BRANCH) } }
+        // stage('ruby 2.4') { steps { rubyDockerBuildAndPush('2.4', env.GIT_BRANCH) } }
+        // stage('ruby 2.5') { steps { rubyDockerBuildAndPush('2.5', env.GIT_BRANCH) } }
       }
     }
   }
