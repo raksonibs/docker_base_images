@@ -5,14 +5,14 @@ def lint(image) {
 }
 
 def rubyDockerBuildAndPush(rubyVersion, branch) {
-  libmysqlclient = rubyVersion == '2.5' ? 'default-libmysqlclient-dev' : 'libmysqlclient-dev'
-  buildArgs = "--build-arg RUBY_VERSION=${rubyVersion} --build-arg LIBMYSQLCLIENT=${libmysqlclient}"
+  def libmysqlclient = rubyVersion == '2.5' ? 'default-libmysqlclient-dev' : 'libmysqlclient-dev'
+  def buildArgs = "--build-arg RUBY_VERSION=${rubyVersion} --build-arg LIBMYSQLCLIENT=${libmysqlclient}"
   dockerBuildAndPush('ruby', branch, buildArgs)
 }
 
 def dockerBuildAndPush(image, branch, buildArgs = '') {
-  version = sh(returnStdout: true, script: "cat ${image}/VERSION").trim()
-  tag = "docker.voxops.net/${image}:${version}"
+  def version = sh(returnStdout: true, script: "cat ${image}/VERSION").trim()
+  def tag = "docker.voxops.net/${image}:${version}"
   sh "docker build ${image} ${buildArgs} -t ${tag}"
   if (branch == 'master') { sh "docker push ${tag}" }
 }
