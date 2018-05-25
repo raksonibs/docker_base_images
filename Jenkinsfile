@@ -20,20 +20,12 @@ def dockerBuildAndPush(image, branch, buildArgs = '') {
 pipeline {
   agent any
   stages {
-    stage('Lint') {
-      parallel {
-        stage('local-dns') { steps { lint('local-dns') } }
-        stage('ruby') { steps { lint('ruby') } }
-      }
-    }
-    stage('Build and Push') {
-      parallel {
-        stage('local-dns') { steps { dockerBuildAndPush('local-dns', env.GIT_BRANCH) } }
-        stage('ruby 2.2') { steps { rubyDockerBuildAndPush('2.2', env.GIT_BRANCH) } }
-        stage('ruby 2.3') { steps { rubyDockerBuildAndPush('2.3', env.GIT_BRANCH) } }
-        stage('ruby 2.4') { steps { rubyDockerBuildAndPush('2.4', env.GIT_BRANCH) } }
-        stage('ruby 2.5') { steps { rubyDockerBuildAndPush('2.5', env.GIT_BRANCH) } }
-      }
-    }
+    stage('Lint local-dns') { steps { lint('local-dns') } }
+    stage('Lint ruby') { steps { lint('ruby') } }
+    stage('Build and Push local-dns') { steps { dockerBuildAndPush('local-dns', env.GIT_BRANCH) } }
+    stage('Build and Push ruby 2.2') { steps { rubyDockerBuildAndPush('2.2', env.GIT_BRANCH) } }
+    stage('Build and Push ruby 2.3') { steps { rubyDockerBuildAndPush('2.3', env.GIT_BRANCH) } }
+    stage('Build and Push ruby 2.4') { steps { rubyDockerBuildAndPush('2.4', env.GIT_BRANCH) } }
+    stage('Build and Push ruby 2.5') { steps { rubyDockerBuildAndPush('2.5', env.GIT_BRANCH) } }
   }
 }
