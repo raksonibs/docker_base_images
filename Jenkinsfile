@@ -5,8 +5,7 @@ def lint(image) {
 }
 
 def rubyDockerBuildAndPush(rubyVersion, branch) {
-  def libmysqlclient = rubyVersion == '2.5' ? 'default-libmysqlclient-dev' : 'libmysqlclient-dev'
-  def buildArgs = "--build-arg RUBY_VERSION=${rubyVersion} --build-arg LIBMYSQLCLIENT=${libmysqlclient}"
+  def buildArgs = "--build-arg RUBY_VERSION=${rubyVersion} --build-arg LIBMYSQLCLIENT=default-libmysqlclient-dev"
   dockerBuildAndPush('ruby', branch, buildArgs, "${rubyVersion}-")
 }
 
