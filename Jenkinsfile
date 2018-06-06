@@ -13,13 +13,10 @@ def rubyDockerBuildAndPush(rubyVersion, branch) {
 def dockerBuildAndPush(image, branch, buildArgs = '', versionPrefix = '') {
   def version = sh(returnStdout: true, script: "cat ${image}/VERSION").trim()
 
-  def localTag = "${image}:${versionPrefix}${version}"
-  sh "docker build ${image} ${buildArgs} -t ${localTag}"
-
   ['docker.voxops.net', 'voxmedia'].each {
-    def registryTag = "${it}/${localTag}"
-    sh "docker tag ${localTag} ${registryTag}"
-    if (branch == 'master') { sh "docker push ${registryTag}" }
+    def tag = "${it}/${image}:${versionPrefix}${version}"
+    sh "docker build ${image} ${buildArgs} -t ${tag}"
+    if (branch == 'master') { sh "docker push ${tag}" }
   }
 }
 
