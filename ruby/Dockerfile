@@ -1,19 +1,22 @@
-ARG RUBY_VERSION=latest
-FROM ruby:${RUBY_VERSION}
-ARG LIBMYSQLCLIENT=libmysqlclient-dev
+FROM ubuntu:16.04
+
+ARG RUBY_VERSION=2.5
 
 RUN apt-get update \
-  && apt-get install -y ${LIBMYSQLCLIENT} mysql-client apt-transport-https --no-install-recommends \
+  && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    wget \
+    apt-transport-https \
+    openssh-client \
+    autoconf \
+    build-essential \
+    libmysqlclient-dev \
+    mysql-client \
+    git \
   && rm -rf /var/lib/apt/lists/* \
-  && gem install bundler -v 1.16.0 \
-  && mkdir /app \
-  && mkdir /app/tmp \
   && mkdir /root/.ssh \
   && ssh-keyscan github.com >> /root/.ssh/known_hosts
-
-# Setup a common bundler configuration
-ENV BUNDLE_JOBS=4 \
-    BUNDLE_APP_CONFIG=/root/.bundle
 
 ENV LC_ALL C.UTF-8
 
@@ -25,3 +28,15 @@ RUN chmod -R +x /opt/build/*
 
 ADD entrypoint_scripts /opt/entrypoint/
 RUN chmod -R +x /opt/entrypoint/*
+
+ENV GEM_HOME=/usr/local/bundle
+ENV PATH=${GEM_HOME}/bin:${PATH} \
+  BUNDLE_PATH=${GEM_HOME} \
+  BUNDLE_BIN=${GEM_HOME}/bin/ \
+  BUNDLE_APP_CONFIG=/root/.bundle \
+  BUNDLE_SILENCE_ROOT_WARNING=1 \
+  BUNDLE_JOBS=4
+RUN mkdir -p ${GEM_HOME} \
+  && chmod 777 ${GEM_HOME} \
+  && /opt/build/install_ruby.sh ${RUBY_VERSION} \
+  && gem install bundler -v 1.16.2
