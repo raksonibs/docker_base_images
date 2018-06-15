@@ -1,5 +1,9 @@
 ### Ruby images changelog
 
+#### Version ruby:2.x-2.5.2
+
+* Adds a mutex to the entry script `yarn.sh` to prevent cache collisions between multiple `yarn install` runs.
+
 #### Version ruby:2.x-2.5.1
 
 * Removes gemnasium
