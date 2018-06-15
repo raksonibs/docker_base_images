@@ -1,6 +1,6 @@
 The Dockerfiles in this repo are built and published into our private docker repo at https://docker.voxops.net. 
 
-All images are tagged `voxmedia/image_name:A.B.C` and `docker.voxops.net/image_name:A.B.C`, where `A.B.C` is the image version. Upon merge to `master`, [CI] will build, tag and publish the images, so don't forget to update the `VERSION` file.
+All images are tagged `voxmedia/image_name:A.B.C` and `docker.voxops.net/image_name:A.B.C`, where `A.B.C` is the image version. Upon merge to `master`, CI will build, tag, and publish the images, so don't forget to update the `VERSION` file.
 
 Images should use [semantic versioning](https://semver.org).
 
