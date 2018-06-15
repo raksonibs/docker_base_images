@@ -5,6 +5,10 @@
 * The base image now derives from a generic ubuntu image. The dockerhub ruby image that it used to derive from does some opinionated bundler config that conflicts with our own.
 * The bundler config (now entirely under our control) has been updated according our desired behavior.
 
+#### Version ruby:2.x-2.5.2
+
+* Adds a mutex to the entry script `yarn.sh` to prevent cache collisions between multiple `yarn install` runs.
+
 #### Version ruby:2.x-2.5.1
 
 * Removes gemnasium
