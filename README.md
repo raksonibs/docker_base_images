@@ -1,4 +1,16 @@
-The Dockerfiles in this repo are built and published into our private docker repo at https://docker.voxops.net. All images are tagged `voxmedia/image_name:A.B.C`, where `A.B.C` is the image version. Images should use [semantic versioning](https://semver.org).
+The Dockerfiles in this repo are built and published into our private docker repo at https://docker.voxops.net. 
+
+All images are tagged `voxmedia/image_name:A.B.C` and `docker.voxops.net/image_name:A.B.C`, where `A.B.C` is the image version. Upon merge to `master`, [CI] will build, tag and publish the images, so don't forget to update the `VERSION` file.
+
+Images should use [semantic versioning](https://semver.org).
+
+## Updating the images
+
+- Make your changes.
+- Don't forget to bump the version in the appropriate `VERSION` file.
+- Record the changes in `CHANGELOG.md`
+- PR your changes and have it reviewed.
+- [Jenkins|CI](https://ci.voxops.net/job/Legacy%20Builds/job/docker_base_images/job/master/) will build, tag, and publish the images on merge to master.
 
 ## Index
 
@@ -39,7 +51,7 @@ For example, to set up an entrypoint that includes docker-ssh-exec, updates the 
 
 A version of this image is released for each supported version of ruby (2.2, 2.3, 2.4, 2.5).
 
-The images are tagged `voxmedia/ruby:2.x-A.B.C`, where `2.x` is the ruby version and `A.B.C` is the image version. The image version uses [semantic versioning](https://semver.org).
+The images are tagged `voxmedia/ruby:2.x-A.B.C` and `docker.voxops.net/ruby:2.x-A.B.C`, where `2.x` is the ruby version and `A.B.C` is the image version. The image version uses [semantic versioning](https://semver.org).
 
 And all updates are recorded in a running [CHANGELOG](https://github.com/voxmedia/docker_base_images/blob/master/ruby/CHANGELOG.md).
 
@@ -47,12 +59,6 @@ And all updates are recorded in a running [CHANGELOG](https://github.com/voxmedi
 
 - Make your changes, then run `docker build ./ruby --build-arg RUBY_VERSION=2.3 -t base-image-test` to build your image
 - Temporarily replace the base image of the app you'd like to test against by editing its Dockerfile to say `FROM base-image-test:latest`
-
-### Updating the images
-
-- Make your changes
-- Bump the version in `VERSION` and record the change in `CHANGELOG.md`
-- Jenkins will build and push on merge to master.
 
 ## Local DNS
 
@@ -72,7 +78,7 @@ The dns server is not included by default. To use it:
 
       services:
         dns:
-          image: voxmedia/local-dns:A.B.C
+          image: docker.voxops.net/local-dns:A.B.C
 
 * Set up the necessary containers to depend upon this service, and include `use_dns_server` in the entrypoint dispatch (this updates the container's resolve.conf to use this local dns server instead of standard dns), e.g.:
 
@@ -87,13 +93,7 @@ The dns server is not included by default. To use it:
 
 ### Versioning
 
-The image is tagged `voxmedia/local-dns:A.B.C`, where `A.B.C` is the image version. The image version uses [semantic versioning](https://semver.org).
-
-### Updating the images
-
-- Make your changes
-- Bump the version in `VERSION`
-- Jenkins will build and push on merge to master.
+The image is tagged with `voxmedia/local-dns:A.B.C` and `docker.voxops.net/local-dns:A.B.C`, where `A.B.C` is the image version. The image version uses [semantic versioning](https://semver.org).
 
 ## Bin scripts
 
