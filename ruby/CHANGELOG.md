@@ -1,6 +1,10 @@
 ### Ruby images changelog
 
-#### Version ruby:2.x-2.5.2
+#### Version ruby:2.x-2.5.3
+
+* Fixes the mutex in the entry script `yarn.sh` to use the current working directory to prevent collisions between multiple `yarn install` runs.
+
+#### Version ruby:2.x-2.5.2 (DO NOT USE -- yarn entrypoint is broken)
 
 * Adds a mutex to the entry script `yarn.sh` to prevent cache collisions between multiple `yarn install` runs.
 
