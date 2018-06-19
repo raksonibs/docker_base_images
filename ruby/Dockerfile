@@ -8,6 +8,7 @@ RUN apt-get update \
     tzdata \
     file \
     curl \
+    libcurl4-openssl-dev \
     wget \
     apt-transport-https \
     openssh-client \

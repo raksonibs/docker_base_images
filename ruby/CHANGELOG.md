@@ -1,5 +1,9 @@
 ### Ruby images changelog
 
+#### Version ruby:2.x-3.0.2
+
+* Adds `libcurl4-openssl-dev` to support ffi gem.
+
 #### Version ruby:2.x-3.0.1
 
 * Add a few missing apt packages
