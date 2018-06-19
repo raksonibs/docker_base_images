@@ -1,5 +1,9 @@
 ### Ruby images changelog
 
+#### Version ruby:2.x-3.0.1
+
+* Add a few missing apt packages
+
 #### Version ruby:2.x-3.0.0
 
 * The base image now derives from a generic ubuntu image. The dockerhub ruby image that it used to derive from does some opinionated bundler config that conflicts with our own.
