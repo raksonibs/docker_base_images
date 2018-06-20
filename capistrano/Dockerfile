@@ -1,4 +1,4 @@
-FROM docker.voxops.net/ruby:2.5-3.0.1
+FROM docker.voxops.net/ruby:2.5-3.0.2
 
 COPY entrypoint.sh /opt/entrypoint.sh
 RUN chmod -R +x /opt/entrypoint.sh
