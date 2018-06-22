@@ -11,12 +11,9 @@ def rubyDockerBuildAndPush(rubyVersion, branch) {
 
 def dockerBuildAndPush(image, branch, buildArgs = '', versionPrefix = '') {
   def version = sh(returnStdout: true, script: "cat ${image}/VERSION").trim()
-
-  ['docker.voxops.net', 'voxmedia'].each {
-    def tag = "${it}/${image}:${versionPrefix}${version}"
-    sh "docker build ${image} ${buildArgs} -t ${tag}"
-    if (branch == 'master') { sh "docker push ${tag}" }
-  }
+  def tag = "docker.voxops.net/${image}:${versionPrefix}${version}"
+  sh "docker build ${image} ${buildArgs} -t ${tag}"
+  if (branch == 'master') { sh "docker push ${tag}" }
 }
 
 pipeline {
