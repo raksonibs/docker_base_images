@@ -1,5 +1,10 @@
 ### Ruby images changelog
 
+#### Version ruby:2.x-3.0.x
+
+* Deprecates Ruby 2.2
+* TK (Update on actual release)
+
 #### Version ruby:2.x-3.0.2
 
 * Adds `libcurl4-openssl-dev` to support ffi gem.
