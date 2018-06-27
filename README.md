@@ -1,4 +1,4 @@
-The Dockerfiles in this repo are built and published into our private docker repo at https://docker.voxops.net. 
+The Dockerfiles in this repo are built and published into our private docker repo at https://docker.voxops.net.
 
 All images are tagged `voxmedia/image_name:A.B.C` and `docker.voxops.net/image_name:A.B.C`, where `A.B.C` is the image version. Upon merge to `master`, CI will build, tag, and publish the images, so don't forget to update the `VERSION` file.
 
@@ -49,7 +49,7 @@ For example, to set up an entrypoint that includes docker-ssh-exec, updates the 
 
 ### Versioning
 
-A version of this image is released for each supported version of ruby (2.2, 2.3, 2.4, 2.5).
+A version of this image is released for each supported version of ruby (2.3, 2.4, 2.5).
 
 The images are tagged `voxmedia/ruby:2.x-A.B.C` and `docker.voxops.net/ruby:2.x-A.B.C`, where `2.x` is the ruby version and `A.B.C` is the image version. The image version uses [semantic versioning](https://semver.org).
 
