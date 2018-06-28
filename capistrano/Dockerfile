@@ -5,4 +5,4 @@ ADD Gemfile* /app/
 
 RUN docker-ssh-exec bundle install
 
-ENTRYPOINT ["/opt/entrypoint/dispatcher.sh", "bundle", "--"]
+ENTRYPOINT ["docker-ssh-exec", "/opt/entrypoint/dispatcher.sh", "bundle", "--"]
