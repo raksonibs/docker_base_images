@@ -23,16 +23,32 @@ pipeline {
       parallel {
         stage('local-dns') { steps { lint('local-dns') } }
         stage('ruby') { steps { lint('ruby') } }
+        stage('capistrano') { steps { lint('capistrano') } }
       }
     }
     stage('Build and Push') {
+      when { branch 'master' }
       parallel {
-        stage('local-dns') { steps { dockerBuildAndPush('local-dns', env.GIT_BRANCH) } }
-        stage('ruby 2.2') { steps { rubyDockerBuildAndPush('2.2', env.GIT_BRANCH) } }
-        stage('ruby 2.3') { steps { rubyDockerBuildAndPush('2.3', env.GIT_BRANCH) } }
-        stage('ruby 2.4') { steps { rubyDockerBuildAndPush('2.4', env.GIT_BRANCH) } }
-        stage('ruby 2.5') { steps { rubyDockerBuildAndPush('2.5', env.GIT_BRANCH) } }
-        stage('capistrano') { steps { dockerBuildAndPush('capistrano', env.GIT_BRANCH) } }
+        stage('local-dns') {
+          when { changeset 'local-dns/VERSION' }
+          steps { dockerBuildAndPush('local-dns', env.GIT_BRANCH) }
+        }
+        stage('ruby 2.3') {
+          when { changeset 'ruby/VERSION' }
+          steps { rubyDockerBuildAndPush('2.3', env.GIT_BRANCH) }
+        }
+        stage('ruby 2.4') {
+          when { changeset 'ruby/VERSION' }
+          steps { rubyDockerBuildAndPush('2.4', env.GIT_BRANCH) }
+        }
+        stage('ruby 2.5') {
+          when { changeset 'ruby/VERSION' }
+          steps { rubyDockerBuildAndPush('2.5', env.GIT_BRANCH) }
+        }
+        stage('capistrano') {
+          when { changeset 'capistrano/VERSION' }
+          steps { dockerBuildAndPush('capistrano', env.GIT_BRANCH) }
+        }
       }
     }
   }
