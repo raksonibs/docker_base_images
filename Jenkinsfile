@@ -43,7 +43,7 @@ pipeline {
         }
         stage('ruby 2.5') {
           when { changeset 'ruby/VERSION' }
-          steps { rubyDockerBuildAndPush('2.5', env.GIT_BRANCH)
+          steps { rubyDockerBuildAndPush('2.5', env.GIT_BRANCH) }
         }
         stage('capistrano') {
           when { changeset 'capistrano/VERSION' }
