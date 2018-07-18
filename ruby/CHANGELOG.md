@@ -5,6 +5,7 @@
 * Deprecates Ruby 2.2
 * Updates node_install script to use multiple pgp key servers
 * Updates node_install script to use current LTS as the default version (8.11.3)
+* Install some standard tools: vim, less, unzip, ifconfig (via net-tools), ping (via iputils-ping)
 
 #### Version ruby:2.x-3.0.2
 

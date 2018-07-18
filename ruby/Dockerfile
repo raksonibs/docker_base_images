@@ -17,6 +17,11 @@ RUN apt-get update \
     libmysqlclient-dev \
     mysql-client \
     git \
+    vim \
+    less \
+    unzip \
+    net-tools \
+    iputils-ping \
   && rm -rf /var/lib/apt/lists/* \
   && mkdir /root/.ssh \
   && ssh-keyscan github.com >> /root/.ssh/known_hosts
