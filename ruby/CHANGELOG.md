@@ -1,9 +1,10 @@
 ### Ruby images changelog
 
-#### Version ruby:2.x-3.0.x
+#### Version ruby:2.x-3.0.3
 
 * Deprecates Ruby 2.2
-* TK (Update on actual release)
+* Updates node_install script to use multiple pgp key servers
+* Updates node_install script to use current LTS as the default version (8.11.3)
 
 #### Version ruby:2.x-3.0.2
 
