@@ -1,5 +1,9 @@
 ### Ruby images changelog
 
+#### Version ruby:2.x-3.x.x
+
+* Fixed typo in `wait_for_node_install.sh`
+
 #### Version ruby:2.x-3.0.3
 
 * Deprecates Ruby 2.2
