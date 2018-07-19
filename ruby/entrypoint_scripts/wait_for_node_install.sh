@@ -5,7 +5,7 @@ ITERATIONS=${WAIT_FOR_NODE:-60}
 NODE_READY=false
 
 for i in $(seq 1 $ITERATIONS); do
-  if yarn bin > /dev/null 2&>1; then
+  if yarn bin > /dev/null 2>&1; then
     yarn check > /dev/null
   else
     npm ls --no-progress > /dev/null 2>&1
