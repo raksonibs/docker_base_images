@@ -1,1 +1,0 @@
-{"Statement":[{"Resource":"https://d1pea6wt3ld8hw.cloudfront.net/ruby/VERSION","Condition":{"DateLessThan":{"AWS:EpochTime":1595877853}}}]}
