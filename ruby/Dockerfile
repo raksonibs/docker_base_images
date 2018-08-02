@@ -48,3 +48,5 @@ RUN mkdir -p ${GEM_HOME} \
   && chmod 777 ${GEM_HOME} \
   && /opt/build/install_ruby.sh ${RUBY_VERSION} \
   && gem install bundler -v 1.16.2
+
+ARG IMAGE_VERSION
