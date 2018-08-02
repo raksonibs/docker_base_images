@@ -13,7 +13,7 @@ services:
     volumes:
       - ./ruby/entrypoint_scripts/base_image_check.sh:/opt/entrypoint/base_image_check.sh
       - ./ruby/entrypoint_scripts/aws-policies:/opt/policies
-      - ${AWS_SIGNED_URL_KEY}:/opt/policies/aws-signed-url-private-key.pem
+      - ${AWS_SIGNED_URL_KEY_PATH}:/opt/policies/aws-signed-url-private-key.pem
     networks:
       - default
       - "!docker-ssh-exec"
