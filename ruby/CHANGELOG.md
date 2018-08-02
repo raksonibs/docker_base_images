@@ -1,8 +1,9 @@
 ### Ruby images changelog
 
-#### Version ruby:2.x-3.x.x
+#### Version ruby:2.x-3.1.0
 
 * Fixed typo in `wait_for_node_install.sh`
+* Adds check for newer base images
 
 #### Version ruby:2.x-3.0.3
 
