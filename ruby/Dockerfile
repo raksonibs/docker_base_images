@@ -22,6 +22,7 @@ RUN apt-get update \
     unzip \
     net-tools \
     iputils-ping \
+    subversion \
   && rm -rf /var/lib/apt/lists/* \
   && mkdir /root/.ssh \
   && ssh-keyscan github.com >> /root/.ssh/known_hosts
