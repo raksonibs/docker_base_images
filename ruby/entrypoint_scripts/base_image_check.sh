@@ -20,13 +20,16 @@ if [ "$(version "$LATEST_VERSION")" -gt "$(version "$IMAGE_VERSION")" ] ; then
     if [[ $line = *"$IMAGE_VERSION"* ]]; then
       break;
     fi
-    echo $line
+    echo "$line"
   done < <(cat /tmp/CHANGELOG.md)
   echo "..."
   echo "################################################################################"
 
   echo
   echo "To see the full CHANGELOG, please visit https://github.com/voxmedia/docker_base_images/ruby/CHANGELOG.md"
+
+  echo
+  echo < cat /tmp/CHANGELOG.md
 else
   echo "The current base image ($IMAGE_VERSION) is up-to-date! 👍"
 fi
