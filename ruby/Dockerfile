@@ -35,7 +35,7 @@ RUN chmod +x /usr/local/bin/docker-ssh-exec
 ADD build_scripts /opt/build/
 RUN chmod -R +x /opt/build/*
 
-ADD entrypoint_scripts/*.sh /opt/entrypoint/
+ADD entrypoint_scripts /opt/entrypoint/
 RUN chmod -R +x /opt/entrypoint/*
 
 ENV GEM_HOME=/usr/local/bundle
