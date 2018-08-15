@@ -7,8 +7,8 @@ function version { echo "$@" | awk -F. '{ printf("%03d%03d%03d\n", $1,$2,$3); }'
 GITDIR=`mktemp -d`
 WORKDIR=`mktemp -d`
 
-(docker-ssh-exec git clone --quiet --depth=1 --bare git@github.com:voxmedia/docker_base_images.git $GITDIR && \
-docker-ssh-exec git --bare --git-dir=$GITDIR --work-tree=$WORKDIR checkout --quiet -f HEAD -- ruby/VERSION ruby/CHANGELOG.md) \
+(git clone --quiet --depth=1 --bare git@github.com:voxmedia/docker_base_images.git $GITDIR && \
+git --bare --git-dir=$GITDIR --work-tree=$WORKDIR checkout --quiet -f HEAD -- ruby/VERSION ruby/CHANGELOG.md) \
 &> /tmp/base_image_check.log
 
 if [ $? -gt 0 ] ; then
