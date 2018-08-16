@@ -12,7 +12,7 @@ def rubyDockerBuildAndPush(rubyVersion, branch) {
 def dockerBuildAndPush(image, branch, buildArgs = '', versionPrefix = '') {
   def version = sh(returnStdout: true, script: "cat ${image}/VERSION").trim()
   def tag = "docker.voxops.net/${image}:${versionPrefix}${version}"
-  sh "docker build ${image} ${buildArgs} -t ${tag}"
+  sh "docker build ${image} ${buildArgs} -t ${tag} --build-arg IMAGE_VERSION=${version}"
   if (branch == 'master') { sh "docker push ${tag}" }
 }
 
