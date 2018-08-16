@@ -50,3 +50,4 @@ RUN mkdir -p ${GEM_HOME} \
   && gem install bundler -v 1.16.2
 
 ARG IMAGE_VERSION
+ENV IMAGE_VERSION ${IMAGE_VERSION}
