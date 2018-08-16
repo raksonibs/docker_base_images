@@ -3,8 +3,7 @@
 #### Version ruby:2.x-3.1.0
 
 * Fixed typo in `wait_for_node_install.sh`
-* Installs subversion (as a way to get a single file from a github repo)
-* Adds check for newer base images
+* Adds new entrypoint script to check for newer version of the base image
 
 #### Version ruby:2.x-3.0.3
 
