@@ -1,5 +1,9 @@
 ### Ruby images changelog
 
+#### Version ruby:2.x-3.1.1
+
+* Adds the IMAGE_VERSION env to the base image (required by base_image_check.sh)
+
 #### Version ruby:2.x-3.1.0
 
 * Fixed typo in `wait_for_node_install.sh`
