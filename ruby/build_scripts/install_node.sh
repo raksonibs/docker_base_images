@@ -16,7 +16,8 @@ KEYS="94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
 
 SERVERS="pool.sks-keyservers.net \
          keyserver.pgp.com \
-         pgp.mit.edu"
+         pgp.mit.edu \
+         keyserver.ubuntu.com"
 
 function importKeys() {
   for key in $KEYS; do
