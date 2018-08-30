@@ -49,5 +49,7 @@ RUN mkdir -p ${GEM_HOME} \
   && /opt/build/install_ruby.sh ${RUBY_VERSION} \
   && gem install bundler -v 1.16.2
 
+RUN /opt/build/import_node_keys.sh
+
 ARG IMAGE_VERSION
 ENV IMAGE_VERSION ${IMAGE_VERSION}

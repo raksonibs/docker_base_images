@@ -1,5 +1,9 @@
 ### Ruby images changelog
 
+#### Version ruby:2.x-3.1.3
+
+* Import the node gpg keys directly in the base image. Node installation itself is still on-demand in downstream Dockerfiles.
+
 #### Version ruby:2.x-3.1.2
 
 * Updates node_install script to sleep & retry to fetch gpg keys
