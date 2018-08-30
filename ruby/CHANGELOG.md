@@ -1,5 +1,10 @@
 ### Ruby images changelog
 
+#### Version ruby:2.x-3.1.2
+
+* Updates node_install script to sleep & retry to fetch gpg keys
+* Updates node_install script to include ubuntu gpg key server
+
 #### Version ruby:2.x-3.1.1
 
 * Adds the IMAGE_VERSION env to the base image (required by base_image_check.sh)
