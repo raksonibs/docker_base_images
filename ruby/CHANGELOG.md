@@ -2,7 +2,7 @@
 
 #### Version ruby:2.x-3.1.4
 
-* Increase startup times by using `yarn check` and only running `yarn install` if things are out-of-date.
+* Decrease startup times by using `yarn check` and only running `yarn install` if things are out-of-date.
 
 #### Version ruby:2.x-3.1.3
 
