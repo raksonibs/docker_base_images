@@ -1,5 +1,9 @@
 ### Ruby images changelog
 
+#### Version ruby:2.x-3.1.4
+
+* Increase startup times by using `yarn check` and only running `yarn install` if things are out-of-date.
+
 #### Version ruby:2.x-3.1.3
 
 * Import the node gpg keys directly in the base image. Node installation itself is still on-demand in downstream Dockerfiles.
