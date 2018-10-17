@@ -1,5 +1,9 @@
 ### Ruby images changelog
 
+#### Version ruby:2.x-3.1.5
+
+* Make `yarn check` less noisy (no need to report one error line for every missing package, especially noisy on initial run).
+
 #### Version ruby:2.x-3.1.4
 
 * Decrease startup times by using `yarn check` and only running `yarn install` if things are out-of-date.

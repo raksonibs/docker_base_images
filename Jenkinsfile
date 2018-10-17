@@ -30,23 +30,18 @@ pipeline {
       when { branch 'master' }
       parallel {
         stage('local-dns') {
-          when { changeset 'local-dns/VERSION' }
           steps { dockerBuildAndPush('local-dns', env.GIT_BRANCH) }
         }
         stage('ruby 2.3') {
-          when { changeset 'ruby/VERSION' }
           steps { rubyDockerBuildAndPush('2.3', env.GIT_BRANCH) }
         }
         stage('ruby 2.4') {
-          when { changeset 'ruby/VERSION' }
           steps { rubyDockerBuildAndPush('2.4', env.GIT_BRANCH) }
         }
         stage('ruby 2.5') {
-          when { changeset 'ruby/VERSION' }
           steps { rubyDockerBuildAndPush('2.5', env.GIT_BRANCH) }
         }
         stage('capistrano') {
-          when { changeset 'capistrano/VERSION' }
           steps { dockerBuildAndPush('capistrano', env.GIT_BRANCH) }
         }
       }

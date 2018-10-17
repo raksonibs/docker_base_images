@@ -23,6 +23,7 @@ echo "Installing Ruby ${RUBY_VERSION}"
 apt-get update
 apt-get install -y --no-install-recommends \
   bison \
+  ruby \
   libssl-dev \
   libyaml-dev \
   libreadline6-dev \
