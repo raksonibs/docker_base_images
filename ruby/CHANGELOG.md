@@ -1,5 +1,9 @@
 ### Ruby images changelog
 
+#### Version ruby:2.x-3.1.6
+
+* Skip `yarn check` on initial container run, when the node_modules volume is empty
+
 #### Version ruby:2.x-3.1.5
 
 * Make `yarn check` less noisy (no need to report one error line for every missing package, especially noisy on initial run).
